@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::prefix('kegiatan')->group(function () {
+        Route::get('/', [ActivityController::class, 'index']);                  //list data
+        Route::get('/{id}', [ActivityController::class, 'show']);               //detail data
+        Route::post('/', [ActivityController::class, 'store']);                 //insert data
+        Route::post('/{id}', [ActivityController::class, 'update']);            //update data
+        Route::post('/delete/{id}', [ActivityController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+    });
 });

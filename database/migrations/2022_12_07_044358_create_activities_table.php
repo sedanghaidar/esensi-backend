@@ -16,10 +16,10 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable(false);            // nama kegiatan
-            $table->date('date')->nullable(false);          // tanggal kegiatan
-            $table->time('time')->nullable(false);          // waktu kegiatan
-            $table->string('location')->nullable(false);    // lokasi  kegiatan
-            $table->integer('created_by');                 // User ID pembuat kegiatan
+            $table->date('date')->nullable(false);              // tanggal kegiatan
+            $table->time('time')->nullable(false);              // waktu kegiatan
+            $table->string('location')->nullable(false);        // lokasi  kegiatan
+            $table->integer('created_by')->default(1);  // User ID pembuat kegiatan
             $table->timestamps();
             $table->softDeletes();
         });
