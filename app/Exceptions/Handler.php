@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -24,6 +26,19 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    protected function unauthenticated($request, AuthenticationException $ex)
+    {
+        if ($request->is('api/*')) { // for routes starting with `/api`
+            return response()->json([
+                'success' => false, 'code' => 401,
+                'message' => $ex->getMessage(),
+                'result' => null,
+            ], 401);
+        }
+
+        return redirect('/login'); // for normal routes
+    }
 
     /**
      * Register the exception handling callbacks for the application.
