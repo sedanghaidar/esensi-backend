@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Participant;
+use App\Models\Peserta;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         // $this->call(UserSeeder::class);
-        $this->call(ActivitySeeder::class);
+        // $this->call(ActivitySeeder::class);
+        $this->call(ParticipantSeeder::class);
     }
 }
