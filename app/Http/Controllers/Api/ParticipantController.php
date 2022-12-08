@@ -1,0 +1,185 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Participant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
+class ParticipantController extends Controller
+{
+    public function getParticipantByKegiatanID($kegiatan_id)
+    {
+        try {
+            $result = Participant::with('kegiatan')
+                ->where('activity_id', '=', $kegiatan_id)
+                ->get();
+
+            if ($result) {
+                return $this->success("Berhasil mengambil data", $result);
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        try {
+            $result = Participant::with('kegiatan')->get();
+
+            if ($result) {
+                return $this->success("Berhasil mengambil data", $result);
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'activity_id' => 'required',
+                'name' => 'required',
+                'jabatan' => 'required',
+                'instansi' => 'required',
+                'nohp' => 'required',
+                'signature' => 'required',
+            ]);
+
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            //INIT location FILE SURAT
+            $filenameSimpan = ""; //Inisisasi
+            if ($request->has('signature')) {
+                // ada file yang diupload
+                $filenameWithExt = $request->file('signature')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('signature')->getClientOriginalExtension();
+                $filenameSimpan = date("YmdHis") . '_' . $filename . '.' . $extension;
+
+                if ($request->file('signature') != null) {
+                    $uploaded = $request->file('signature')->storeAs('public/signature', $filenameSimpan);
+                }
+            }
+
+            $request->merge([
+                'path_signature' => $filenameSimpan,
+            ]);
+
+            $result = Participant::create([
+                'activity_id' => $request->activity_id,
+                'name' => $request->name,
+                'nip' => $request->nip ?? null,
+                'jabatan' => $request->jabatan,
+                'instansi' => $request->instansi,
+                'nohp' => $request->nohp,
+                'signature' => $request->path_signature,
+                'qr_code' => Str::random(69),
+            ]);
+
+            if ($result) {
+                return $this->success("Berhasil menambah data", $result);
+            } else {
+                return $this->error("Gagal menambahkan data");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $result = Participant::with('kegiatan')->find($id);
+
+            if ($result) {
+                return $this->success("Berhasil mengambil data", $result);
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $result = Participant::find($id);
+            $result->delete();
+
+            return $this->success("Berhasil menghapus data", $result);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+}

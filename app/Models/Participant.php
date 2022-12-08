@@ -27,4 +27,9 @@ class Participant extends Model
 
     //SOFT DELETE
     protected $dates = ['deleted_at'];
+
+    public function kegiatan()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id');
+    }
 }
