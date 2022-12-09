@@ -19,8 +19,6 @@ class CreateActivitiesTable extends Migration
             $table->date('date')->nullable(false);              // tanggal kegiatan
             $table->time('time')->nullable(false);              // waktu kegiatan
             $table->string('location')->nullable(false);        // lokasi  kegiatan
-            $table->dateTime('max_date')->nullable(true);           // tanggal batas input/pendaftaran
-            $table->boolean('limit_participant')->default(false); //membatasi jumlah pendaftar
             $table->integer('created_by')->default(1);  // User ID pembuat kegiatan
             $table->timestamps();
             $table->softDeletes();

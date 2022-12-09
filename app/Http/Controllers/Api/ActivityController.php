@@ -68,6 +68,8 @@ class ActivityController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'location' => $request->location,
+                'max_date' => $request->max_date ?? null,
+                'limit_participant' => $request->limit_participant ?? 0,
                 'created_by' => auth()->user()->id,
             ]);
 
@@ -145,6 +147,8 @@ class ActivityController extends Controller
             $data->date = $request->date;
             $data->time = $request->time;
             $data->location = $request->location;
+            $data->max_date = $request->max_date ?? null;
+            $data->limit_participant = $request->limit_participant ?? 0;
             $data->created_by = auth()->user()->id;
 
 
