@@ -11,6 +11,7 @@ class Participant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'id',
         'activity_id',
         'name',
         'nip',
