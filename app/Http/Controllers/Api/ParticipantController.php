@@ -10,6 +10,43 @@ use Illuminate\Support\Str;
 
 class ParticipantController extends Controller
 {
+    public function scanQRParticipant(Request $request)
+    {
+        try {
+
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'activity_id' => 'required',
+                'qr_code' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            // return $request;
+            $data = Participant::where('activity_id', '=', $request->activity_id)
+                ->where("qr_code", "=", $request->qr_code)
+                ->first();
+
+            if ($data->scanned_at != null) {
+                return $this->error("Scan sudah di lakukan pada " . $data->scanned_at);
+            }
+
+            $data->scanned_by = auth()->user()->id;
+            $data->scanned_at = now();
+
+            if ($data->save()) {
+                return $this->success("Berhasil melakukan scan QR", Participant::find($data->id));
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
     public function getParticipantByKegiatanID($kegiatan_id)
     {
         try {

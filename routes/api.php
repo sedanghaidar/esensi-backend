@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('peserta')->group(function () {
         Route::get('/kegiatan/{id}', [ParticipantController::class, 'getParticipantByKegiatanID']);               //detail data
+        Route::post('/scan', [ParticipantController::class, 'scanQRParticipant']);
 
         Route::get('/', [ParticipantController::class, 'index']);                  //list data
         Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
