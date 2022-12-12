@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\ParticipantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']);  //detail kegiatan by kode url (public)
 Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
+Route::get('/organisasi', [OrganizationController::class, 'index']);                  //list data
+Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByKegiatan']);                  //list data
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
