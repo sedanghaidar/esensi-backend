@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 
 Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']);  //detail kegiatan by kode url (public)
+Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -37,7 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/', [ParticipantController::class, 'index']);                  //list data
         Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
-        Route::post('/', [ParticipantController::class, 'store']);                 //insert data
+        // Route::post('/', [ParticipantController::class, 'store']);                 //insert data
         Route::post('/{id}', [ParticipantController::class, 'update']);            //update data
         Route::post('/delete/{id}', [ParticipantController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
     });
