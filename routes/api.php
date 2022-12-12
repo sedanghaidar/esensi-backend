@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
+Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']);  //detail kegiatan by kode url (public)
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('kegiatan')->group(function () {

@@ -6,9 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ActivityController extends Controller
 {
+    /**
+     *  LOAD
+     *
+     * @param  String  $codeurl
+     * @return \Illuminate\Http\Response
+     */
+    public function loadByCode($codeurl)
+    {
+        try {
+            $result = Activity::where('code_url', '=', $codeurl)->first();
+
+            if ($result) {
+                return $this->success("Berhasil mengambil data", $result);
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -68,6 +90,7 @@ class ActivityController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'location' => $request->location,
+                'code_url' => Str::random(128),
                 'max_date' => $request->max_date ?? null,
                 'limit_participant' => $request->limit_participant ?? 0,
                 'created_by' => auth()->user()->id,
