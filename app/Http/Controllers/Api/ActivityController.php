@@ -39,7 +39,7 @@ class ActivityController extends Controller
     public function index()
     {
         try {
-            $result = Activity::get();
+            $result = Activity::OrderByDesc('created_at')->get();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
@@ -92,6 +92,7 @@ class ActivityController extends Controller
                 'location' => $request->location,
                 'code_url' => Str::random(128),
                 'max_date' => $request->max_date ?? null,
+                'type' => $request->type ?? 1,
                 'limit_participant' => $request->limit_participant ?? 0,
                 'created_by' => auth()->user()->id,
             ]);
@@ -171,6 +172,7 @@ class ActivityController extends Controller
             $data->time = $request->time;
             $data->location = $request->location;
             $data->max_date = $request->max_date ?? null;
+            $data->type = $request->type ?? 1;
             $data->limit_participant = $request->limit_participant ?? 0;
             $data->created_by = auth()->user()->id;
 

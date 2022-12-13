@@ -16,7 +16,7 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'date', 'time', 'location', 'code_url', 'max_date', 'limit_participant', 'created_at'
+        'id', 'name', 'date', 'time', 'location', 'code_url', 'max_date', 'type', 'limit_participant', 'created_at'
     ];
 
     //SOFT DELETE
