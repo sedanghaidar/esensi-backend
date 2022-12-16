@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Organization;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -120,6 +121,19 @@ class ParticipantController extends Controller
                 return $this->error("Parameter tidak sesuai.");
             }
 
+            //cek instansi ada tidak
+            $idOrganiasi = 0;
+            $organisasi = Organization::where('name', '=', $request->instansi)->first();
+            if ($organisasi == false) {
+                $insOrg = Organization::create([
+                    'name' => $request->instansi,
+                    'short_name' => $request->instansi,
+                ]);
+                $idOrganiasi = $insOrg->id;
+            } else {
+                $idOrganiasi = $organisasi->id;
+            }
+
             //INIT location FILE SURAT
             $filenameSimpan = ""; //Inisisasi
             if ($request->has('signature')) {
@@ -144,6 +158,7 @@ class ParticipantController extends Controller
                 'nip' => $request->nip ?? null,
                 'jabatan' => $request->jabatan,
                 'instansi' => $request->instansi,
+                'organization_id' => $idOrganiasi,
                 'nohp' => $request->nohp,
                 'signature' => $request->path_signature,
                 'qr_code' => Str::random(69),

@@ -17,6 +17,7 @@ class Participant extends Model
         'nip',
         'jabatan',
         'instansi',
+        'organization_id',
         'nohp',
         'signature',
         'qr_code',
