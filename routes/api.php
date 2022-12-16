@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\ParticipantController;
+use App\Http\Controllers\Api\OrganizationLimitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']
 Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
 Route::get('/organisasi', [OrganizationController::class, 'index']);                  //list data
 Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByKegiatan']);                  //list data
+
+Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -46,4 +49,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/{id}', [ParticipantController::class, 'update']);            //update data
         Route::post('/delete/{id}', [ParticipantController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
     });
+
+    // Route::prefix('organization-limit')->group(function () {
+
+    //     // Route::get('/', [OrganizationLimitController::class, 'index']);                  //list data
+    //     // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
+    //     Route::post('/', [OrganizationLimitController::class, 'store']);      //insert data
+    //     // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
+    //     // Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+    // });
 });
