@@ -18,7 +18,6 @@ class ParticipantController extends Controller
             $input = $request->all();
 
             $validator = Validator::make($input, [
-                'activity_id' => 'required',
                 'qr_code' => 'required',
             ]);
 
@@ -27,8 +26,7 @@ class ParticipantController extends Controller
             }
 
             // return $request;
-            $data = Participant::where('activity_id', '=', $request->activity_id)
-                ->where("qr_code", "=", $request->qr_code)
+            $data = Participant::where("qr_code", "=", $request->qr_code)
                 ->first();
 
             if ($data->scanned_at != null) {
