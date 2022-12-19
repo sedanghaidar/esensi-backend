@@ -21,4 +21,29 @@ class Organization extends Model
     {
         return $this->hasMany(OrganizationLimit::class);
     }
+
+    public static function getSingleOrganisasi($name)
+    {
+        return self::where('name', '=', $name)->first();
+    }
+
+    public static function insertOrganisasi($name)
+    {
+        return self::create([
+            'name' => $name,
+            'short_name' => $name,
+        ]);
+    }
+
+    public static function findOrCreate($name)
+    {
+        //cek instansi ada tidak
+        $organisasi = Organization::getSingleOrganisasi($name);
+        if ($organisasi == false) {
+            $insOrg = Organization::insertOrganisasi($name);
+
+            return self::find($insOrg->id);
+        }
+        return $organisasi;
+    }
 }

@@ -25,4 +25,29 @@ class OrganizationLimit extends Model
     {
         return $this->belongsTo(Activity::class, 'activity_id');
     }
+
+
+    public static function insertOrUpdateLimit($activity_id, $organization_id, $max_participant)
+    {
+        try {
+            $result = self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->first();
+
+            if ($result) {
+                //ada maka update
+                self::where('id', '=', $result->id)->update([
+                    'max_participant' => $max_participant,
+                ]);
+            } else {
+                //kosong maka insert
+                OrganizationLimit::create([
+                    'activity_id' => $activity_id,
+                    'organization_id' => $organization_id,
+                    'max_participant' => $max_participant,
+                    'created_by' => auth()->user()->id,
+                ]);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }

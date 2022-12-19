@@ -26,7 +26,9 @@ Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
 Route::get('/organisasi', [OrganizationController::class, 'index']);                  //list data
 Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByKegiatan']);                  //list data
 
-Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
+// Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
+Route::get('/peserta/{id}', [ParticipantController::class, 'show']);               //detail data
+
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -44,18 +46,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/scan', [ParticipantController::class, 'scanQRParticipant']);
 
         Route::get('/', [ParticipantController::class, 'index']);                  //list data
-        Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
+        // Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
         // Route::post('/', [ParticipantController::class, 'store']);                 //insert data
         Route::post('/{id}', [ParticipantController::class, 'update']);            //update data
         Route::post('/delete/{id}', [ParticipantController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
     });
 
-    // Route::prefix('organization-limit')->group(function () {
+    Route::prefix('organization-limit')->group(function () {
+        Route::get('/byactid/{kegiatan_id}', [OrganizationLimitController::class, 'getListLimitOrgbyActivityID']);                  //list data by Kegiatan ID
+        Route::post('/insert', [OrganizationLimitController::class, 'bulkStore']);   //insert all data
 
-    //     // Route::get('/', [OrganizationLimitController::class, 'index']);                  //list data
-    //     // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
-    //     Route::post('/', [OrganizationLimitController::class, 'store']);      //insert data
-    //     // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
-    //     // Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
-    // });
+        Route::get('/', [OrganizationLimitController::class, 'index']);                  //list data
+        // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
+        Route::post('/', [OrganizationLimitController::class, 'store']);      //insert data
+        // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
+        // Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+    });
 });

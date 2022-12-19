@@ -123,12 +123,9 @@ class ParticipantController extends Controller
 
             //cek instansi ada tidak
             $idOrganiasi = 0;
-            $organisasi = Organization::where('name', '=', $request->instansi)->first();
+            $organisasi = Organization::getSingleOrganisasi($request->instansi);
             if ($organisasi == false) {
-                $insOrg = Organization::create([
-                    'name' => $request->instansi,
-                    'short_name' => $request->instansi,
-                ]);
+                $insOrg = Organization::insertOrganisasi($request->instansi);
                 $idOrganiasi = $insOrg->id;
             } else {
                 $idOrganiasi = $organisasi->id;

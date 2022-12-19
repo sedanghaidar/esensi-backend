@@ -40,7 +40,7 @@ class OrganizationController extends Controller
     public function index()
     {
         try {
-            $result = Organization::get();
+            $result = Organization::where('id', '<=', '3184')->get();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
