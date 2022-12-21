@@ -50,4 +50,11 @@ class OrganizationLimit extends Model
             //throw $th;
         }
     }
+
+    public static function getTotalLimitParticipant($activity_id, $organization_id)
+    {
+        //cek jumlah maksimal
+        $result = self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->first();
+        return $result->max_participant;
+    }
 }

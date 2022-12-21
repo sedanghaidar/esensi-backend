@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Organization;
+use App\Models\OrganizationLimit;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -127,6 +129,14 @@ class ParticipantController extends Controller
                 $idOrganiasi = $insOrg->id;
             } else {
                 $idOrganiasi = $organisasi->id;
+            }
+
+            //load detail kegiatan
+            $kegiatan = Activity::find($request->activity_id);
+            if ($kegiatan->type == 2) {
+                if (Participant::getTotalPesertaTerdaftar($request->activity_id, $idOrganiasi) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $idOrganiasi)) {
+                    return $this->error("Maaf, Kuota telah terpenuhi untuk instansi anda..");
+                }
             }
 
             //INIT location FILE SURAT

@@ -92,7 +92,7 @@ class ActivityController extends Controller
                 'location' => $request->location,
                 'code_url' => Str::random(128),
                 'max_date' => $request->max_date ?? null,
-                'type' => $request->type ?? 1,
+                'type' => $request->type ?? 2,
                 'limit_participant' => $request->limit_participant ?? 0,
                 'created_by' => auth()->user()->id,
             ]);
