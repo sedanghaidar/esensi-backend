@@ -133,7 +133,7 @@ class ParticipantController extends Controller
 
             //load detail kegiatan
             $kegiatan = Activity::find($request->activity_id);
-            if ($kegiatan->type == 2) {
+            if ($kegiatan->limit_participant == 1) {
                 if (Participant::getTotalPesertaTerdaftar($request->activity_id, $idOrganiasi) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $idOrganiasi)) {
                     return $this->error("Maaf, Kuota telah terpenuhi untuk instansi anda..");
                 }
