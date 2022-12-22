@@ -55,6 +55,9 @@ class OrganizationLimit extends Model
     {
         //cek jumlah maksimal
         $result = self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->first();
-        return $result->max_participant;
+        if ($result) {
+            return $result->max_participant;
+        }
+        return 0;
     }
 }
