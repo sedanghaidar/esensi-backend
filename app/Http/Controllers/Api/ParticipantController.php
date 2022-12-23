@@ -121,20 +121,13 @@ class ParticipantController extends Controller
                 return $this->error("Parameter tidak sesuai.");
             }
 
-            //cek instansi ada tidak
-            $idOrganiasi = 0;
-            $organisasi = Organization::getSingleOrganisasi($request->instansi);
-            if ($organisasi == false) {
-                $insOrg = Organization::insertOrganisasi($request->instansi);
-                $idOrganiasi = $insOrg->id;
-            } else {
-                $idOrganiasi = $organisasi->id;
-            }
+            //cek instansi, jika tidak ada create jika ada ambil datanya
+            $organisasi = Organization::findOrCreate($request->instansi);
 
             //load detail kegiatan
             $kegiatan = Activity::find($request->activity_id);
             if ($kegiatan->limit_participant == 1) {
-                if (Participant::getTotalPesertaTerdaftar($request->activity_id, $idOrganiasi) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $idOrganiasi)) {
+                if (Participant::getTotalPesertaTerdaftar($request->activity_id, $organisasi->id) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $organisasi->id)) {
                     return $this->error("Maaf, Kuota telah terpenuhi untuk instansi anda..");
                 }
             }
@@ -163,14 +156,14 @@ class ParticipantController extends Controller
                 'nip' => $request->nip ?? null,
                 'jabatan' => $request->jabatan,
                 'instansi' => $request->instansi,
-                'organization_id' => $idOrganiasi,
+                'organization_id' => $organisasi->id,
                 'nohp' => $request->nohp,
                 'signature' => $request->path_signature,
                 'qr_code' => Str::random(69),
             ]);
 
             if ($result) {
-                return $this->success("Berhasil menambah data", $result);
+                return $this->success("Berhasil menambah data", Participant::find($result->id));
             } else {
                 return $this->error("Gagal menambahkan data");
             }
