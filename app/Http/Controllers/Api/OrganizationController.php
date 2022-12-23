@@ -40,7 +40,7 @@ class OrganizationController extends Controller
     public function index()
     {
         try {
-            $result = Organization::where('id', '<=', '3184')->get();
+            $result = Organization::get();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
@@ -59,7 +59,6 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -70,7 +69,27 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'name' => 'required',
+            ]);
+
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+            $result = Organization::findOrCreate($request->name);
+
+            if ($result) {
+                return $this->success("Berhasil menambahkan data", $result);
+            } else {
+                return $this->error("data tidak ditemukan.");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
     }
 
     /**

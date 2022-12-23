@@ -41,8 +41,7 @@ class Organization extends Model
         $organisasi = Organization::getSingleOrganisasi($name);
         if ($organisasi == false) {
             $insOrg = Organization::insertOrganisasi($name);
-
-            return self::find($insOrg->id);
+            return $insOrg;
         }
         return $organisasi;
     }
