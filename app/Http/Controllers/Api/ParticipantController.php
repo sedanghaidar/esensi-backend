@@ -10,6 +10,7 @@ use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use PDF;
 
 class ParticipantController extends Controller
 {
