@@ -33,7 +33,27 @@ class ParticipantController extends Controller
                 ->get();
 
             // return $results;
-            return view('pdfdownload', compact('results', 'kegiatan'));
+            // return view('pdfdownload', compact('results', 'kegiatan'));
+
+            $pdf = PDF::setOptions([
+                'images' => true,
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+            ])->loadView('pdfdownload', compact('results', 'kegiatan'));
+
+            $pdf->getDomPDF()->setHttpContext(
+                stream_context_create([
+                    'ssl' => [
+                        'allow_self_signed' => TRUE,
+                        'verify_peer' => FALSE,
+                        'verify_peer_name' => FALSE,
+                    ]
+                ])
+            );
+
+            $pdf->setPaper('a4', 'potrait');
+
+            return $pdf->download($kegiatan->name . '.pdf');
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }
