@@ -61,7 +61,7 @@
       <td class="border" style="text-align: center;">{{$key+1}}</td>
       <td class="border" style="width: 45%">{{$item->name}}</td>
       <td class="border" style="width: 35%">{{$item->instansi}}</td>
-      <td class="border" style="width: 20%; height: 70px;"><img src="{{url('storage/signature/'.$item->signature)}}" width="350px" class="center"></td>
+      <td class="border" style="width: 20%; height: 80px;"><img src="{{url('storage/signature/'.$item->signature)}}" height="80px" class="center"></td>
     </tr>
     @endforeach
   </table>
