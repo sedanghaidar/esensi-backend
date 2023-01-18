@@ -13,6 +13,32 @@ use Illuminate\Support\Str;
 
 class ParticipantController extends Controller
 {
+    public function downloadPDF(Request $request)
+    {
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'kegiatan_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
+
+            $results = Participant::where('activity_id', '=', $request->kegiatan_id)
+                ->orderByDesc('updated_at')
+                ->get();
+
+            // return $results;
+            return view('pdfdownload', compact('results', 'kegiatan'));
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
     public function scanQRParticipant(Request $request)
     {
         try {
