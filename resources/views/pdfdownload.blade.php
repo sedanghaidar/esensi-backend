@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Download PDF</title>
+    <title>{{$kegiatan->name}}</title>
     <style>
       .page-break {
         page-break-after: always;
@@ -13,8 +13,9 @@
         border: 1px solid black;
         border-collapse: collapse;
       }
-      h1, h2, h3, h4, h5, h6 {text-align: center;}
+      h1, h2, h3, h4, h5, h6 {text-align: center; font-family: Calibri;}
       .center{text-align: center;}
+      body{font-family: Calibri;}
     </style>
 </head>
 <body>
@@ -51,17 +52,17 @@
 
   <table style="width: 100%" class="border">
     <tr>
-      <th class="border">No.</th>
-      <th class="border">Nama</th>
-      <th class="border">Instansi</th>
-      <th class="border">TTD</th>
+      <th class="border">NO.</th>
+      <th class="border">NAMA</th>
+      <th class="border">INSTANSI</th>
+      <th class="border">TANDA TANGAN</th>
     </tr>
     @foreach ($results as $key => $item)
 
     <tr style="height: 30px">
       <td class="border" style="text-align: center;">{{$key+1}}</td>
-      <td class="border" style="width: 45%">{{$item->name}}</td>
-      <td class="border" style="width: 35%">{{$item->instansi}}</td>
+      <td class="border" style="width: 35%; padding-left: 12px; padding-right: 12px;">{{$item->name}}</td>
+      <td class="border" style="width: 45%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}}</td>
       <td class="border center" style="width: 20%; height: 90px;"><img src="{{url('storage/signature/'.$item->signature)}}" height="90px" class="center"></td>
     </tr>
     @endforeach
