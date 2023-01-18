@@ -37,6 +37,7 @@ class ParticipantController extends Controller
 
             $data->scanned_by = auth()->user()->id;
             $data->scanned_at = now();
+            $data->updated_at = now();
 
             if ($data->save()) {
                 return $this->success("Berhasil melakukan scan QR", Participant::find($data->id));
@@ -53,6 +54,7 @@ class ParticipantController extends Controller
         try {
             $result = Participant::with('kegiatan')
                 ->where('activity_id', '=', $kegiatan_id)
+                ->orderByDesc('updated_at')
                 ->get();
 
             if ($result) {
