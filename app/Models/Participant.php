@@ -14,6 +14,7 @@ class Participant extends Model
         'id',
         'activity_id',
         'name',
+        'gender',
         'nip',
         'jabatan',
         'instansi',
