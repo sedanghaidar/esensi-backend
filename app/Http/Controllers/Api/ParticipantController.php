@@ -159,6 +159,7 @@ class ParticipantController extends Controller
             $validator = Validator::make($input, [
                 'activity_id' => 'required',
                 'name' => 'required',
+                // 'gender' => 'required',
                 'jabatan' => 'required',
                 'instansi' => 'required',
                 'nohp' => 'required',
@@ -202,6 +203,7 @@ class ParticipantController extends Controller
             $result = Participant::create([
                 'activity_id' => $request->activity_id,
                 'name' => $request->name,
+                'gender' => $request->gender ?? null,
                 'nip' => $request->nip ?? null,
                 'jabatan' => $request->jabatan,
                 'instansi' => $request->instansi,
