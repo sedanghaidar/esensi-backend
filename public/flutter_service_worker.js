@@ -3,46 +3,47 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "ab594ce8c4dfca28d443ec535a5efe17",
-"assets/assets/ic_date.png": "8461ccb9a7c19150183fe3cc59958960",
-"assets/assets/ic_date_close.png": "5672605245e03c671709037ffb8d51ab",
-"assets/assets/ic_delete.png": "405f69800f0835776be71c86618182e0",
-"assets/assets/ic_place.png": "f490ecac149b5c233b46a096b38e6860",
-"assets/assets/ic_type_form.png": "3e2ee2b25f898fa2973952697c0e009d",
-"assets/assets/ic_user_limit.png": "f1a6ba6527c3496abaed3179eaf39013",
-"assets/assets/img_error.svg": "9f9ad50373e1ac230bb5aa3a97d41cc9",
-"assets/assets/img_jateng.png": "6bb3da6af024dc9c9ba61affb410ce7e",
-"assets/assets/img_login.svg": "c16f51bb389f72325051d1b0850f7519",
-"assets/assets/img_not_found.svg": "228e4ee9247e1cceb504ad2281f14458",
-"assets/assets/img_warning.svg": "a11458eef86456eb8cb4f178c30cde2c",
-"assets/assets/logo_jateng.svg": "21491b84150c495cdf243ccbe94d756e",
-"assets/assets/office.png": "a451f9eb99eb328834db261461d45fe8",
-"assets/assets/participant.png": "00c39653c328aca113a5c57030a05875",
-"assets/assets/qrcode.png": "5335637c4502b41b13650bac44ea3a6c",
-"assets/assets/qrscan_error.png": "cb2686aae97fc3cc31e27e90a66a1d29",
-"assets/assets/qrscan_success.png": "69e9268f018acffc3d7d936631851e07",
-"assets/assets/signature.png": "040b1f53ffe4b865ea2058fa654f04d9",
-"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/NOTICES": "e1ae7512b2dd93123422ff66423ac199",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"assets/packages/fluttertoast/assets/toastify.css": "a85675050054f179444bc5ad70ffc635",
-"assets/packages/fluttertoast/assets/toastify.js": "e7006a0a033d834ef9414d48db3be6fc",
-"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
-"canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
-"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
+  "version.json": "3f7ef2f523da11141f1e32eea752b54d",
+"index.html": "955718beebf6c4af55fe4fe2d697ac36",
+"/": "955718beebf6c4af55fe4fe2d697ac36",
+"main.dart.js": "fdb2409a53f3b095cdd81b14c15c2474",
+"flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"flutter.js": "eb2682e33f25cd8f1fc59011497c35f8",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "01cb33b861a9088ed0b6e25c06254387",
-"/": "01cb33b861a9088ed0b6e25c06254387",
-"main.dart.js": "715707bd6dd13ff2faad60e8476a8f45",
-"manifest.json": "dd128208e2db1c09d987ff60cd553581",
-"version.json": "3f7ef2f523da11141f1e32eea752b54d"
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+"manifest.json": "551d8460a9308cb43dd9e89617004b95",
+"assets/AssetManifest.json": "ab594ce8c4dfca28d443ec535a5efe17",
+"assets/NOTICES": "cd8fbfd34fb390b15ac9e832cdb3c95b",
+"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
+"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+"assets/packages/fluttertoast/assets/toastify.js": "e7006a0a033d834ef9414d48db3be6fc",
+"assets/packages/fluttertoast/assets/toastify.css": "a85675050054f179444bc5ad70ffc635",
+"assets/shaders/ink_sparkle.frag": "7bf10f9b7d1ed741238899ef19abdded",
+"assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
+"assets/assets/qrscan_error.png": "cb2686aae97fc3cc31e27e90a66a1d29",
+"assets/assets/qrcode.png": "5335637c4502b41b13650bac44ea3a6c",
+"assets/assets/img_warning.svg": "d57d87dd2812390230adc2a9166e8c2c",
+"assets/assets/img_not_found.svg": "228e4ee9247e1cceb504ad2281f14458",
+"assets/assets/ic_delete.png": "405f69800f0835776be71c86618182e0",
+"assets/assets/img_login.svg": "e999c176809684ebc36847130a61d191",
+"assets/assets/ic_date_close.png": "5672605245e03c671709037ffb8d51ab",
+"assets/assets/ic_type_form.png": "3e2ee2b25f898fa2973952697c0e009d",
+"assets/assets/office.png": "a451f9eb99eb328834db261461d45fe8",
+"assets/assets/qrscan_success.png": "69e9268f018acffc3d7d936631851e07",
+"assets/assets/ic_date.png": "8461ccb9a7c19150183fe3cc59958960",
+"assets/assets/logo_jateng.svg": "13b67a2c507205bfa6cb82484615c159",
+"assets/assets/ic_place.png": "f490ecac149b5c233b46a096b38e6860",
+"assets/assets/participant.png": "00c39653c328aca113a5c57030a05875",
+"assets/assets/img_jateng.png": "6bb3da6af024dc9c9ba61affb410ce7e",
+"assets/assets/ic_user_limit.png": "f1a6ba6527c3496abaed3179eaf39013",
+"assets/assets/signature.png": "040b1f53ffe4b865ea2058fa654f04d9",
+"assets/assets/img_error.svg": "9f9ad50373e1ac230bb5aa3a97d41cc9",
+"canvaskit/canvaskit.js": "2bc454a691c631b07a9307ac4ca47797",
+"canvaskit/profiling/canvaskit.js": "38164e5a72bdad0faa4ce740c9b8e564",
+"canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
+"canvaskit/canvaskit.wasm": "bf50631470eb967688cca13ee181af62"
 };
 
 // The application shell files that are downloaded before a service worker can
@@ -50,7 +51,6 @@ const RESOURCES = {
 const CORE = [
   "main.dart.js",
 "index.html",
-"assets/NOTICES",
 "assets/AssetManifest.json",
 "assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
@@ -149,9 +149,11 @@ self.addEventListener("fetch", (event) => {
     .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
-        // lazily populate the cache.
+        // lazily populate the cache only if the resource was successfully fetched.
         return response || fetch(event.request).then((response) => {
-          cache.put(event.request, response.clone());
+          if (response && Boolean(response.ok)) {
+            cache.put(event.request, response.clone());
+          }
           return response;
         });
       })
