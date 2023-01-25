@@ -29,9 +29,12 @@ class ParticipantController extends Controller
 
             $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
 
-            $results = Participant::where('activity_id', '=', $request->kegiatan_id)
-                ->orderByDesc('updated_at')
-                ->get();
+            $query = Participant::where('activity_id', '=', $request->kegiatan_id)
+                ->orderByDesc('updated_at');
+            if ($kegiatan->limit_participant == 1) {
+                $query = $query->whereNotNull('scanned_at');
+            }
+            $results = $query->get();
 
             // return $results;
             // return view('pdfdownload', compact('results', 'kegiatan'));
