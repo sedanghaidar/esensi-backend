@@ -53,7 +53,7 @@ class OrganizationLimitController extends Controller
         try {
             $result = OrganizationLimit::with('organization')
                 ->where('activity_id', '=', $kegiatan_id)
-                ->orderBy('name', 'asc')
+                ->orderBy('organization.name', 'asc')
                 ->get();
 
             if ($result) {
