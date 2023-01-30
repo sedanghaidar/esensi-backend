@@ -31,7 +31,7 @@ class ParticipantController extends Controller
 
             $sortBy = 'updated_at';
             $sortAt = 'asc';
-            if ($request->sortBy != null) $sort = $request->sortBy;
+            if ($request->sortBy != null) $sortBy = $request->sortBy;
             if ($request->sortAt != null) $sortAt = $request->sortAt;
             $query = Participant::where('activity_id', '=', $request->kegiatan_id)
                 ->orderBy($sortBy, $sortAt);
