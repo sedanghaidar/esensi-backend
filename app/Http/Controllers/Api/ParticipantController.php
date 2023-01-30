@@ -29,10 +29,12 @@ class ParticipantController extends Controller
 
             $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
 
-            $sort = 'updated_at';
-            if ($request->sort != null) $sort = $request->sort;
+            $sortBy = 'updated_at';
+            $sortAt = 'asc';
+            if ($request->sortBy != null) $sort = $request->sortBy;
+            if ($request->sortAt != null) $sortAt = $request->sortAt;
             $query = Participant::where('activity_id', '=', $request->kegiatan_id)
-                ->orderByDesc($sort);
+                ->orderBy($sortBy, $sortAt);
             if ($kegiatan->limit_participant == 1) {
                 $query = $query->whereNotNull('scanned_at');
             }
