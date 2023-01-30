@@ -55,14 +55,16 @@
       <th class="border">NO.</th>
       <th class="border">NAMA</th>
       <th class="border">INSTANSI</th>
+      <th class="border">WAKTU HADIR</th>
       <th class="border">TANDA TANGAN</th>
     </tr>
     @foreach ($results as $key => $item)
 
     <tr style="height: 30px">
       <td class="border" style="text-align: center;">{{$key+1}}</td>
-      <td class="border" style="width: 35%; padding-left: 12px; padding-right: 12px;">{{$item->name}}</td>
-      <td class="border" style="width: 45%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}}</td>
+      <td class="border" style="width: 30%; padding-left: 12px; padding-right: 12px;">{{$item->name}}</td>
+      <td class="border" style="width: 30%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}}</td>
+      <td class="border" style="width: 20%; padding-left: 12px; padding-right: 12px;">{{$item->scanned_at}}</td>
       <td class="border center" style="width: 20%; height: 90px;"><img src="{{url('storage/signature/'.$item->signature)}}" height="90px" class="center"></td>
     </tr>
     @endforeach
