@@ -29,7 +29,7 @@ Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByK
 // Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
 Route::get('/peserta/{id}', [ParticipantController::class, 'show']);               //detail data
 
-
+Route::get('/peserta/download/excel', [ParticipantController::class, 'downloadExcel']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 

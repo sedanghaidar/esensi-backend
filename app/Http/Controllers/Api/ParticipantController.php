@@ -11,9 +11,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use PDF;
+use App\Exports\Participant as P;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
+
+    public function downloadExcel(Request $request)
+    {
+        $activity = Activity::where('id', '=', $request->id)->first();
+        return Excel::download(new P($request->id), $activity->name . ' Tanggal ' . $activity->date . '.xlsx');
+    }
+
     public function downloadPDF(Request $request)
     {
         try {
