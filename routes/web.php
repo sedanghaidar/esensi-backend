@@ -14,8 +14,6 @@ use App\Http\Controllers\Api\ParticipantController;
 |
 */
 
-Route::get('/downloadpdf', [ParticipantController::class, 'downloadPDF']);
-
 Route::get('/', function () {
     return view('welcome');
 });

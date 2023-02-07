@@ -30,6 +30,7 @@ Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByK
 Route::get('/peserta/{id}', [ParticipantController::class, 'show']);               //detail data
 
 Route::get('/peserta/download/excel', [ParticipantController::class, 'downloadExcel']);
+Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 

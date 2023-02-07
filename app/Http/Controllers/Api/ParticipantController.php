@@ -58,6 +58,7 @@ class ParticipantController extends Controller
             if ($request->sortAt != null) $sortAt = $request->sortAt;
             $query = Participant::where('activity_id', '=', $request->kegiatan_id)
                 ->orderBy($sortBy, $sortAt);
+
             if ($kegiatan->limit_participant == 1) {
                 $query = $query->whereNotNull('scanned_at');
             }
