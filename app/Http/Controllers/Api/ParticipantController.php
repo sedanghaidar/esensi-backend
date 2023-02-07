@@ -20,7 +20,7 @@ class ParticipantController extends Controller
     public function downloadExcel(Request $request)
     {
         $activity = Activity::where('id', '=', $request->id)->first();
-        return Excel::download(new P($request->id), $activity->name . ' Tanggal ' . $activity->date . '.xlsx');
+        return Excel::download(new P($request->id), $activity['name'] . ' Tanggal ' . $activity['date'] . '.xlsx');
     }
 
     public function downloadPDF(Request $request)
