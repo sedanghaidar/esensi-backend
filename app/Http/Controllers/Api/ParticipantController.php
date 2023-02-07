@@ -19,8 +19,22 @@ class ParticipantController extends Controller
 
     public function downloadExcel(Request $request)
     {
-        $activity = Activity::where('id', '=', $request->id)->first();
-        return Excel::download(new P($request->id), $activity['name'] . ' Tanggal ' . $activity['date'] . '.xlsx');
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'kegiatan_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            $activity = Activity::where('id', '=', $request->kegiatan_id)->first();
+            return Excel::download(new P($request->kegiatan_id), $activity->name . ' Tanggal ' . $activity->date . '.xlsx');
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
     }
 
     public function downloadPDF(Request $request)
