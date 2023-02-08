@@ -40,6 +40,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [ActivityController::class, 'store']);                 //insert data
         Route::post('/{id}', [ActivityController::class, 'update']);            //update data
         Route::post('/delete/{id}', [ActivityController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+
+        Route::post('/notulensi/{id}', [ActivityController::class, 'updateLaporan']);            //update data
     });
 
     Route::prefix('peserta')->group(function () {

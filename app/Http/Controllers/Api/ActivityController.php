@@ -10,6 +10,58 @@ use Illuminate\Support\Str;
 
 class ActivityController extends Controller
 {
+
+    /**
+     * UPDATE NOTULENSI/LAPORAN
+     */
+    public function updateLaporan(Request $request, $id)
+    {
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'notulensi' => 'required',
+            ]);
+
+            // return auth()->user();
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            //INIT location FILE SURAT
+            $filenameSimpan = ""; //Inisisasi
+            if ($request->has('file_notulensi')) {
+                // ada file yang diupload
+                $filenameWithExt = $request->file('file_notulensi')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('file_notulensi')->getClientOriginalExtension();
+                $filenameSimpan = date("YmdHis") . '_' . $filename . '.' . $extension;
+
+                if ($request->file('file_notulensi') != null) {
+                    $uploaded = $request->file('file_notulensi')->storeAs('public/file_notulensi', $filenameSimpan);
+                }
+            }
+
+            $request->merge([
+                'data_file' => $filenameSimpan,
+            ]);
+
+            $data = Activity::find($id);
+
+            $data->notulensi = $request->notulensi ?? null;
+            $data->file_notulensi = $request->has("file_notulensi") ? $request->data_file : $data->file_notulensi ?? null;
+
+            if ($data->save()) {
+                return $this->success("Berhasil menambahkan laporan/notulensi", Activity::find($id));
+            } else {
+                return $this->error("Gagal menambahkan notulensi");
+            }
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
     /**
      *  LOAD
      *
