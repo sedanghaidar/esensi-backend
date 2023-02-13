@@ -34,6 +34,10 @@ Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF'
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    Route::prefix('organisasi')->group(function () {
+        Route::post('/tambah', [OrganizationController::class, 'store']);                  //list data
+    });
+
     Route::prefix('kegiatan')->group(function () {
         Route::get('/', [ActivityController::class, 'index']);                  //list data
         Route::get('/{id}', [ActivityController::class, 'show']);               //detail data

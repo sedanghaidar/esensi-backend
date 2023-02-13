@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\OrganizationLimit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationController extends Controller
 {
@@ -71,16 +72,18 @@ class OrganizationController extends Controller
     {
         try {
             $input = $request->all();
+            // return $input;
 
             $validator = Validator::make($input, [
-                'name' => 'required',
+                'name' => 'required|unique:organizations',
+                'short_name' => 'required'
             ]);
 
 
             if ($validator->fails()) {
-                return $this->error("Parameter tidak sesuai.");
+                return $this->error("Nama sudah ada.");
             }
-            $result = Organization::findOrCreate($request->name);
+            $result = Organization::create($input);
 
             if ($result) {
                 return $this->success("Berhasil menambahkan data", $result);
