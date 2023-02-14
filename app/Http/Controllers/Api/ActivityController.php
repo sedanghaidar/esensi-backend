@@ -142,6 +142,7 @@ class ActivityController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'location' => $request->location,
+                'information' => $request->information ?? null,
                 'code_url' => Str::random(128),
                 'max_date' => $request->max_date ?? null,
                 'type' => $request->type ?? 2,
@@ -223,6 +224,7 @@ class ActivityController extends Controller
             $data->date = $request->date;
             $data->time = $request->time;
             $data->location = $request->location;
+            $data->information = $request->information ?? null;
             $data->max_date = $request->max_date ?? null;
             $data->type = $request->type ?? 1;
             $data->limit_participant = $request->limit_participant ?? 0;
