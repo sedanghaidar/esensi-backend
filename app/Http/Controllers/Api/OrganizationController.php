@@ -126,7 +126,16 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $organization = Organization::find($id);
+            $organization->name = $request->name;
+            $organization->short_name = $request->short_name;
+            $organization->save();
+
+            return $this->success("Berhasil menghapus data", $organization);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
     }
 
     /**
@@ -137,6 +146,13 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $result = Organization::find($id);
+            $result->delete();
+
+            return $this->success("Berhasil menghapus data", $result);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
     }
 }

@@ -35,7 +35,9 @@ Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF'
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('organisasi')->group(function () {
-        Route::post('/tambah', [OrganizationController::class, 'store']);                  //list data
+        Route::post('/tambah', [OrganizationController::class, 'store']);
+        Route::post('/hapus/{id}', [OrganizationController::class, 'destroy']);
+        Route::post('/update/{id}', [OrganizationController::class, 'update']);
     });
 
     Route::prefix('kegiatan')->group(function () {
