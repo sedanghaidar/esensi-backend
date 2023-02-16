@@ -69,6 +69,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
         Route::post('/', [OrganizationLimitController::class, 'store']);      //insert data
         // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
-        // Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
     });
 });
