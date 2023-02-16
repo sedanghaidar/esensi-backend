@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\OrganizationLimit;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -97,7 +98,7 @@ class OrganizationLimitController extends Controller
 
             $validator = Validator::make($input, [
                 'activity_id' => 'required',
-                'organization_id' => 'required',
+                'organization_name' => 'required',
                 'max_participant' => 'required',
             ]);
 
@@ -106,15 +107,13 @@ class OrganizationLimitController extends Controller
                 return $this->error("Parameter tidak sesuai.");
             }
 
-            $result = OrganizationLimit::create([
-                'activity_id' => $request->activity_id,
-                'organization_id' => $request->organization_id,
-                'max_participant' => $request->max_participant,
-                'created_by' => auth()->user()->id,
-            ]);
+            $result = OrganizationLimit::updateOrCreate(
+                ['activity_id' => $request->activity_id, 'organization_id' => Organization::getSingleOrganisasi($request->organization_name)->id,],
+                ['max_participant' => $request->max_participant, 'created_by' => auth()->user()->id,]
+            );
 
             if ($result) {
-                return $this->success("Berhasil menambah data", $result);
+                return $this->success("Berhasil menambah data", OrganizationLimit::find($result->id));
             } else {
                 return $this->error("Gagal menambahkan data");
             }
@@ -165,6 +164,16 @@ class OrganizationLimitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = OrganizationLimit::find($id);
+        $participant = Participant::where([
+            ['activity_id', '=', $data->activity_id],
+            ['organization_id', '=', $data->organization_id],
+        ])->get();
+        if (count($participant) == 0) {
+            $data->delete();
+            return $this->success("Berhasil menghapus data", $data);
+        } else {
+            return $this->error("Gagal menghapus data. Sudah ada partisipan yang terdaftar");
+        }
     }
 }
