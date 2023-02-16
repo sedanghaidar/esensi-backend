@@ -224,7 +224,7 @@ class ActivityController extends Controller
             $data->date = $request->date;
             $data->time = $request->time;
             $data->location = $request->location;
-            $data->information = $request->information ?? null;
+            $data->information = $request->has("information") ? $request->information : $data->information;
             $data->max_date = $request->max_date ?? null;
             $data->type = $request->type ?? 1;
             $data->limit_participant = $request->limit_participant ?? 0;
