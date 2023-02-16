@@ -17,3 +17,7 @@ use App\Http\Controllers\Api\ParticipantController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/privacy/policy', function () {
+    return view('privacy');
+});
