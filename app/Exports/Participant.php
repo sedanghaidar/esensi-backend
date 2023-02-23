@@ -15,9 +15,10 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 class Participant implements FromCollection, WithMapping, WithHeadings, WithColumnFormatting
 {
 
-    public function __construct($id)
+    public function __construct($id, $activity)
     {
         $this->id = $id;
+        $this->activity = $activity;
     }
 
     public function map($data): array
@@ -48,6 +49,10 @@ class Participant implements FromCollection, WithMapping, WithHeadings, WithColu
 
     public function collection()
     {
-        return P::where('activity_id', '=', $this->id)->get();
+        $participant =  P::where('activity_id', '=', $this->id);
+        if ($activity->limit_participant == 1) {
+            $participant = $participant->whereNotNull('scanned_at');
+        }
+        return $participant->get();
     }
 }
