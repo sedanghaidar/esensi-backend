@@ -31,7 +31,8 @@ class ParticipantController extends Controller
             }
 
             $activity = Activity::where('id', '=', $request->kegiatan_id)->first();
-            return Excel::download(new P($request->kegiatan_id, $activity), $activity->name . ' Tanggal ' . $activity->date . '.xlsx');
+            // return $activity->limit_participant;
+            return Excel::download(new P($request->kegiatan_id, $activity->limit_participant), $activity->name . ' Tanggal ' . $activity->date . '.xlsx');
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }

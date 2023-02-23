@@ -15,10 +15,10 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 class Participant implements FromCollection, WithMapping, WithHeadings, WithColumnFormatting
 {
 
-    public function __construct($id, $activity)
+    public function __construct($id, $isLimit)
     {
         $this->id = $id;
-        $this->activity = $activity;
+        $this->isLimit = $isLimit;
     }
 
     public function map($data): array
@@ -50,7 +50,7 @@ class Participant implements FromCollection, WithMapping, WithHeadings, WithColu
     public function collection()
     {
         $participant =  P::where('activity_id', '=', $this->id);
-        if ($activity->limit_participant == 1) {
+        if ($this->isLimit == 1) {
             $participant = $participant->whereNotNull('scanned_at');
         }
         return $participant->get();
