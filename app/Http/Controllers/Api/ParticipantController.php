@@ -30,13 +30,17 @@ class ParticipantController extends Controller
     Pukul   : ' . substr($kegiatan->time, 0, 5) . ' WIB s.d. Selesai
     Tempat  : ' . $kegiatan->location . '
 
-Berikut link zoom meeting acara :
-https://s.id/FGDARSITEKTURSPBE2023
-ID Rapat: 953 0643 9149
-Passcode: spbejtg-23
+' . $kegiatan->verification_message . '
             
 *)Mohon untuk tidak membalas pesan notifikasi ini, terima kasih.',
         ]);
+
+        if ($response['error'] == false) {
+            $participant->is_wa_sent = true;
+            $participant->save();
+        } else {
+        }
+
         return $response;
     }
 
