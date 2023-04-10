@@ -24,6 +24,8 @@ class Participant extends Model
         'qr_code',
         'scanned_by',
         'scanned_at',
+        'verification_message',
+        'is_wa_sent',
         'created_at',
         'updated_at',
     ];

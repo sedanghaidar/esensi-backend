@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Carbon;
+
 // use Symfony\Component\HttpFoundation\Request;
 
 class MyHelper
@@ -45,5 +47,17 @@ class MyHelper
     $date = preg_replace($pattern, $replace, $date);
     $date = "{$date} {$suffix}";
     return $date;
+  }
+
+  public function formatTanggal($tanggal)
+  {
+    // Ubah format tanggal menjadi objek Carbon
+    $carbon = Carbon::createFromFormat('Y-m-d', $tanggal);
+
+    // Set locale menjadi bahasa Indonesia
+    setlocale(LC_TIME, 'id_ID');
+
+    // Format tanggal dengan format yang diinginkan
+    return $carbon->formatLocalized('%A, %d %B %Y');
   }
 }

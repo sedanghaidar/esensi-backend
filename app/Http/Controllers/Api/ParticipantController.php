@@ -13,9 +13,50 @@ use Illuminate\Support\Str;
 use PDF;
 use App\Exports\Participant as P;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
+use App\Helpers\MyHelper;
 
 class ParticipantController extends Controller
 {
+
+    public function sendWA($kegiatan, $participant)
+    {
+        $response = Http::asForm()->post('103.9.227.50:3333/message/text?key=test123', [
+            'id' => $this->formatPhone($participant->nohp),
+            'message' =>
+            'Terima kasih anda telah melakukan pendaftaran pada kegiatan ' . $kegiatan->name . ' yang akan dilaksanakan pada:
+
+    Tanggal : ' . $this->indonesian_date($kegiatan->date, 'l, d F Y') . '
+    Pukul   : ' . substr($kegiatan->time, 0, 5) . ' WIB s.d. Selesai
+    Tempat  : ' . $kegiatan->location . '
+
+' . $kegiatan->verification_message . '
+            
+*)Mohon untuk tidak membalas pesan notifikasi ini, terima kasih.',
+        ]);
+
+        if ($response['error'] == false) {
+            $participant->is_wa_sent = true;
+            $participant->save();
+        } else {
+        }
+
+        return $response;
+    }
+
+    public function sendWAPerActivity($id)
+    {
+        $result = Participant::with('kegiatan')
+            ->where('activity_id', '=', $id)
+            ->orderByDesc('updated_at')
+            ->get();
+
+        foreach ($result as $key => $value) {
+            app('App\Http\Controllers\Api\ParticipantController')->sendWA($value->kegiatan, $value);
+        }
+
+        return $result;
+    }
 
     public function downloadExcel(Request $request)
     {
@@ -245,6 +286,7 @@ class ParticipantController extends Controller
             ]);
 
             if ($result) {
+                app('App\Http\Controllers\Api\ParticipantController')->sendWA($kegiatan, $result);
                 return $this->success("Berhasil menambah data", Participant::find($result->id));
             } else {
                 return $this->error("Gagal menambahkan data");
