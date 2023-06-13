@@ -31,7 +31,7 @@ class ParticipantController extends Controller
     Tempat  : ' . $kegiatan->location . '
 
 ' . $kegiatan->verification_message . '
-            
+
 *)Mohon untuk tidak membalas pesan notifikasi ini, terima kasih.',
         ]);
 
