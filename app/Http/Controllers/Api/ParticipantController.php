@@ -35,6 +35,7 @@ class ParticipantController extends Controller
         $message = str_replace("#instansi_peserta", $participant->instansi, $message);
         $message = str_replace("#jabatan_peserta", $participant->jabatan, $message);
 
+
         if ($kegiatan->type == 2) {
             $message = "" . $message . "\n\nLihat QR Pendaftaran anda disini http://cs.saturnalia.jatengprov.go.id/#/detail-peserta/" . $participant->id . "";
         }
