@@ -33,6 +33,7 @@ Route::get('/peserta/download/excel', [ParticipantController::class, 'downloadEx
 Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF']);
 
 Route::get('/peserta/blast-wa/{id}', [ParticipantController::class, 'sendWAPerActivity']);
+Route::get('/peserta/blast-wa-participant/{id}', [ParticipantController::class, 'sendWAPerParticipantAndActivity']);
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('organisasi')->group(function () {

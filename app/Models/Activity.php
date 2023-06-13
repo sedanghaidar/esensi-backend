@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\NotificationParticipantModel as Notification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
@@ -16,7 +17,7 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'date', 'time', 'location', 'information', 'code_url', 'notulensi', 'file_notulensi', 'max_date', 'type', 'limit_participant', 'created_at', 'updated_at'
+        'id', 'name', 'date', 'time', 'location', 'information', 'code_url', 'notulensi', 'file_notulensi', 'verification_message', 'max_date', 'type', 'limit_participant', 'created_at', 'updated_at'
     ];
 
     //SOFT DELETE
