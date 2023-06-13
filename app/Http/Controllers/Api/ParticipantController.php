@@ -14,6 +14,7 @@ use PDF;
 use App\Exports\Participant as P;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\RequestOptions;
 use App\Helpers\MyHelper;
 
 class ParticipantController extends Controller
@@ -21,19 +22,26 @@ class ParticipantController extends Controller
 
     public function sendWA($kegiatan, $participant)
     {
-        $response = Http::asForm()->post('103.9.227.50:3333/message/text?key=test123', [
-            'id' => $this->formatPhone($participant->nohp),
-            'message' =>
-            'Terima kasih anda telah melakukan pendaftaran pada kegiatan ' . $kegiatan->name . ' yang akan dilaksanakan pada:
+        $message = $kegiatan->verification_message;
+        $message = str_replace("#nama_agenda", $kegiatan->name, $message);
+        $message = str_replace("#tanggal_agenda", $this->indonesian_date($kegiatan->date, 'l, d F Y'), $message);
+        $message = str_replace("#waktu_agenda", substr($kegiatan->time, 0, 5), $message);
+        $message = str_replace("#lokasi_agenda", $kegiatan->location, $message);
+        $message = str_replace("#informasi_tambahan", $kegiatan->information, $message);
 
-    Tanggal : ' . $this->indonesian_date($kegiatan->date, 'l, d F Y') . '
-    Pukul   : ' . substr($kegiatan->time, 0, 5) . ' WIB s.d. Selesai
-    Tempat  : ' . $kegiatan->location . '
+        $message = str_replace("#nama_peserta", $participant->name, $message);
+        $message = str_replace("#telp_peserta", $participant->nohp, $message);
+        $message = str_replace("#jk_peserta", $participant->gender, $message);
+        $message = str_replace("#instansi_peserta", $participant->instansi, $message);
+        $message = str_replace("#jabatan_peserta", $participant->jabatan, $message);
 
-' . $kegiatan->verification_message . '
-            
-*)Mohon untuk tidak membalas pesan notifikasi ini, terima kasih.',
-        ]);
+        $response = Http::asForm()->post(
+            '103.9.227.50:3333/message/text?key=test123',
+            [
+                'id' => $this->formatPhone($participant->nohp),
+                'message' => $message
+            ]
+        );
 
         if ($response['error'] == false) {
             $participant->is_wa_sent = true;
@@ -56,6 +64,20 @@ class ParticipantController extends Controller
         }
 
         return $result;
+    }
+
+    public function sendWAPerParticipantAndActivity($id, Request $request)
+    {
+
+        $result = Participant::with('kegiatan')
+            ->where('activity_id', '=', $id)
+            ->where('nohp', '=', $request->number)
+            ->orderByDesc('updated_at')
+            ->first();
+
+        $response = app('App\Http\Controllers\Api\ParticipantController')->sendWA($result->kegiatan, $result);
+
+        return $response;
     }
 
     public function downloadExcel(Request $request)
