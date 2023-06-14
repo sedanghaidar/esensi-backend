@@ -144,7 +144,7 @@ class ActivityController extends Controller
                 'location' => $request->location,
                 'information' => $request->information ?? null,
                 'verification_message' => $request->verification_message ?? null,
-                'code_url' => Str::random(128),
+                'code_url' => Str::random(12),
                 'max_date' => $request->max_date ?? null,
                 'type' => $request->type ?? 2,
                 'limit_participant' => $request->limit_participant ?? 0,
