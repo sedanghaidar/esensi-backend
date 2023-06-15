@@ -15,7 +15,7 @@ class CreateNotulensTable extends Migration
     {
         Schema::create('notulens', function (Blueprint $table) {
             $table->id();
-            $table->integer('activity_id')->nullable(false);
+            $table->integer('activity_id')->nullable(false)->unique('activity_id');
             $table->string('image1')->nullable(false);
             $table->string('image2')->nullable(true);
             $table->string('image3')->nullable(true);
