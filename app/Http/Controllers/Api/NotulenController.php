@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Notulen;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
 
 class NotulenController extends Controller
 {
@@ -267,10 +269,60 @@ class NotulenController extends Controller
     public function destroy($id)
     {
         try {
-            $result = Notulen::where('activity_id', '=', $id)->first();
+            $result = Notulen::where('id', '=', $id)->first();
             $result->delete();
 
             return $this->success("Berhasil menghapus data", $result);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    public function downloadPDF(Request $request)
+    {
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'kegiatan_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->error("Parameter tidak sesuai.");
+            }
+
+            $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
+            $notulen = Notulen::where('activity_id', '=', $request->kegiatan_id)->first();
+
+            //get total instansi
+            $query = Participant::where('activity_id', '=', $request->kegiatan_id)
+                ->orderBy('instansi', 'asc');
+            // ->groupBy('instansi')
+
+            $instansi = $query->get()->unique('instansi');
+            $instansi_count = $query->count();
+
+            // return view('pdfdownload_notulen', compact('notulen', 'kegiatan', 'instansi', 'instansi_count'));
+
+            $pdf = PDF::setOptions([
+                'images' => true,
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+            ])->loadView('pdfdownload_notulen', compact('notulen', 'kegiatan', 'instansi', 'instansi_count'));
+
+            $pdf->getDomPDF()->setHttpContext(
+                stream_context_create([
+                    'ssl' => [
+                        'allow_self_signed' => TRUE,
+                        'verify_peer' => FALSE,
+                        'verify_peer_name' => FALSE,
+                    ]
+                ])
+            );
+
+            $pdf->setPaper('a4', 'potrait');
+
+            return $pdf->download($kegiatan->name . '_' . date("YmdHis") . '.pdf');
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }
