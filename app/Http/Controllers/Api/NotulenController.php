@@ -141,7 +141,7 @@ class NotulenController extends Controller
     public function show($id)
     {
         try {
-            $result = Notulen::find($id);
+            $result = Notulen::where('activity_id', '=', $id)->first();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
@@ -267,7 +267,7 @@ class NotulenController extends Controller
     public function destroy($id)
     {
         try {
-            $result = Notulen::find($id);
+            $result = Notulen::where('activity_id', '=', $id)->first();
             $result->delete();
 
             return $this->success("Berhasil menghapus data", $result);
