@@ -29,9 +29,9 @@ class Controller extends BaseController
         return $this->responseJson(true, 200, $message, $data);
     }
 
-    public function error($message)
+    public function error($message, $code = 400)
     {
-        return $this->responseJson(false, 400, $message, null);
+        return $this->responseJson(false, $code, $message, null);
     }
 
     public function unauthorized($message)
