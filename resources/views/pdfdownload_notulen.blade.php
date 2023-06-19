@@ -44,6 +44,11 @@
       line-height: 1.5em;
     }
 
+    img {
+      height: 85%;
+      width: 85%;
+    }
+
   </style>
 </head>
 <body>
@@ -109,7 +114,7 @@
 
     <br>
     <br>
-    <br>ß
+    <br>
 
 
     <tr style="height: 10px">
@@ -130,12 +135,12 @@
 
   <div class="page-break"></div>
   <p class="center">DOKUMENTASI</p>
-  <img style="width: 85%;" class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
+  <img width="850" height="850" class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
   @if ($notulen->image2 != '')
-  <img style="width: 85%;" src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
+  <img width="850" height="850" src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
   @endif
   @if ($notulen->image3 != '')
-  <img style="width: 85%;" src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
+  <img width="850" height="850" src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
   @endif
 
   {{-- PESERTA --}}
