@@ -140,6 +140,9 @@ class ParticipantController extends Controller
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => true,
             ])->loadView('pdfdownload', compact('results', 'kegiatan'));
+            $pdf->setProtocol($_SERVER['DOCUMENT_ROOT']);
+
+            $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
 
             $pdf->getDomPDF()->setHttpContext(
                 stream_context_create([
