@@ -138,6 +138,8 @@ class ActivityController extends Controller
             }
 
             $result = Activity::create([
+                'dinas_id' => auth()->user()->dinas_id,
+                'bidang_id' => auth()->user()->bidang_id,
                 'name' => $request->name,
                 'date' => $request->date,
                 'time' => $request->time,
