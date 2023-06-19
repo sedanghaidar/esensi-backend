@@ -22,7 +22,7 @@
     h5,
     h6 {
       text-align: center;
-      font-family: Calibri;
+      font-family: Tahoma;
     }
 
     .center {
@@ -36,15 +36,20 @@
     }
 
     body {
-      font-family: Calibri;
+      font-family: Tahoma;
+      font-size: 14pt;
+    }
+
+    span {
+      line-height: 1.5em;
     }
 
   </style>
 </head>
 <body>
   <center>
-    <strong style="text-decoration: underline;">NOTULEN RAPAT</strong>
-    <p>{{$kegiatan->name}}</p>
+    <h2 style="text-decoration: underline; font-family: Tahoma;">NOTULEN RAPAT</h2>
+    <div>{{$kegiatan->name}}</div>
   </center>
   <br>
   <table>
@@ -73,21 +78,15 @@
       <td>:</td>
       <td></td>
       </tr>
+      <?php $b = 0 ?>
+      @foreach ($instansi as $key => $item)
       <tr>
         <td></td>
         <td></td>
-        <td>1. {{ $instansi[0]->instansi }}</td>
+        <td>{{$b+1}}. {{ $item->instansi }}</td>
       </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td>2. {{ $instansi[1]->instansi }}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td>3. {{ $instansi[2]->instansi }}</td>
-      </tr>
+      <?php $b++ ?>
+      @endforeach
       @else
       <tr>
         <td>Peserta</td>
@@ -108,25 +107,25 @@
       <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->jabatan}}</td>
     </tr>
 
-    @for ($i = 0; $i < 5; $i++) <br>
+    <br>
+    <br>
+    <br>ß
 
-      @endfor
 
+    <tr style="height: 10px">
+      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 50%; text-decoration: underline; padding-left: 12px; padding-right: 12px;text-align: center;"><strong> {{$notulen->nama}}</strong></td>
+    </tr>
+    <tr style="height: 10px">
 
-      <tr style="height: 10px">
-        <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-        <td style="width: 50%; text-decoration: underline; padding-left: 12px; padding-right: 12px;text-align: center;"><strong> {{$notulen->nama}}</strong></td>
-      </tr>
-      <tr style="height: 10px">
+      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->pangkat}}</td>
+    </tr>
+    <tr style="height: 10px">
 
-        <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-        <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->pangkat}}</td>
-      </tr>
-      <tr style="height: 10px">
-
-        <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-        <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">NIP. {{$notulen->nip}}</td>
-      </tr>
+      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">NIP. {{$notulen->nip}}</td>
+    </tr>
   </table>
 
   <div class="page-break"></div>
@@ -141,6 +140,8 @@
 
   {{-- PESERTA --}}
   @if ($instansi_count > 3)
+  <br />
+  <br />
   <table>
     <tr>
       <td>PESERTA</td>

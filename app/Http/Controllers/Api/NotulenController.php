@@ -291,8 +291,13 @@ class NotulenController extends Controller
                 return $this->error("Parameter tidak sesuai.");
             }
 
-            $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
             $notulen = Notulen::where('activity_id', '=', $request->kegiatan_id)->first();
+            if (!$notulen) {
+                //kondisi jika activity id tidak ditemukan
+                return $this->error("data tidak ditemukan.");
+            }
+
+            $kegiatan = Activity::where('id', '=', $request->kegiatan_id)->first();
 
             //get total instansi
             $query = Participant::where('activity_id', '=', $request->kegiatan_id)
