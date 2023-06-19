@@ -46,7 +46,7 @@
 
     img {
       max-width: 100%;
-      width: auto;
+      max-height: 100%;
     }
 
   </style>
