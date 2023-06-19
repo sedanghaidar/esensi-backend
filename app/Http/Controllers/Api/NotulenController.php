@@ -148,7 +148,7 @@ class NotulenController extends Controller
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
             } else {
-                return $this->error("data tidak ditemukan.");
+                return $this->error("data tidak ditemukan.", 405);
             }
         } catch (Exception $e) {
             return $this->error($e->getMessage());
