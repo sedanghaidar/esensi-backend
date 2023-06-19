@@ -16,7 +16,7 @@ class Notulen extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'activity_id', 'image1', 'image2', 'image3', 'nosurat', 'jabatan', 'nama', 'pangkat', 'nip', 'hasil', 'created_by', 'created_at', 'updated_at'
+        'id', 'activity_id', 'image1', 'image2', 'image3', 'nosurat', 'jabatan', 'nama', 'pangkat', 'nip', 'hasil', 'delta', 'created_by', 'created_at', 'updated_at'
     ];
 
     //SOFT DELETE

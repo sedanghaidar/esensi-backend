@@ -62,6 +62,7 @@ class NotulenController extends Controller
                 'pangkat' => 'required',
                 'nip' => 'required',
                 'hasil' => 'required',
+                'delta' => 'required',
             ]);
 
             // return auth()->user();
@@ -121,6 +122,7 @@ class NotulenController extends Controller
                 'pangkat' => $request->pangkat,
                 'nip' => $request->nip,
                 'hasil' => $request->hasil,
+                'delta' => $request->delta,
                 'created_by' => auth()->user()->id,
             ]);
 
@@ -188,6 +190,7 @@ class NotulenController extends Controller
                 'pangkat' => 'required',
                 'nip' => 'required',
                 'hasil' => 'required',
+                'delta' => 'required',
             ]);
 
             // return auth()->user();
@@ -248,6 +251,7 @@ class NotulenController extends Controller
             $data->pangkat = $request->pangkat;
             $data->nip = $request->nip;
             $data->hasil = $request->hasil;
+            $data->delta = $request->delta;
             $data->created_by = auth()->user()->id;
 
             if ($data->save()) {
