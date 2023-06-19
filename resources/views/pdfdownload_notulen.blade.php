@@ -130,12 +130,12 @@
 
   <div class="page-break"></div>
   <p class="center">DOKUMENTASI</p>
-  <img class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
+  <img style="width: 85%;" class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
   @if ($notulen->image2 != '')
-  <img src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
+  <img style="width: 85%;" src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
   @endif
   @if ($notulen->image3 != '')
-  <img src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
+  <img style="width: 85%;" src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
   @endif
 
   {{-- PESERTA --}}
