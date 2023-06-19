@@ -45,4 +45,9 @@ class Organization extends Model
         }
         return $organisasi;
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Organization::class, 'parent_id', 'id')->with('parent');
+    }
 }

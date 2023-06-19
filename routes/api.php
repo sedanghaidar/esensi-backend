@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\NotulenController;
 use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\ParticipantController;
 use App\Http\Controllers\Api\OrganizationLimitController;
@@ -34,6 +35,10 @@ Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF'
 
 Route::get('/peserta/blast-wa/{id}', [ParticipantController::class, 'sendWAPerActivity']);
 Route::get('/peserta/blast-wa-participant/{id}', [ParticipantController::class, 'sendWAPerParticipantAndActivity']);
+
+Route::get('/notulen/download/pdf', [NotulenController::class, 'downloadPDF']);
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('organisasi')->group(function () {
@@ -72,5 +77,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/createupdate', [OrganizationLimitController::class, 'store']);      //insert data
         // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
         Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+    });
+
+    Route::prefix('notulen')->group(function () {
+        Route::get('/', [NotulenController::class, 'index']);                  //list data
+        Route::get('/{id}', [NotulenController::class, 'show']);               //detail data
+        Route::post('/', [NotulenController::class, 'store']);                 //insert data
+        Route::post('/{id}', [NotulenController::class, 'update']);            //update data
+        Route::post('/delete/{id}', [NotulenController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+
     });
 });

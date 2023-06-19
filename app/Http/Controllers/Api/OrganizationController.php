@@ -41,7 +41,10 @@ class OrganizationController extends Controller
     public function index()
     {
         try {
-            $result = Organization::get();
+            $result = Organization::with('parent')->whereHas('parent', function ($query) {
+                $query->where('parent_id', '=', null);
+            })->orWhere('parent_id', '=', null)->get();
+            // $result = Organization::with('parent')->where('parent_id', '=', null)->get();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
