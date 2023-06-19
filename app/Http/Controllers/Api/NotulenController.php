@@ -314,6 +314,8 @@ class NotulenController extends Controller
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => true,
             ])->loadView('pdfdownload_notulen', compact('notulen', 'kegiatan', 'instansi', 'instansi_count'));
+            $pdf->setProtocol($_SERVER['DOCUMENT_ROOT']);
+            $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
 
             $pdf->getDomPDF()->setHttpContext(
                 stream_context_create([
