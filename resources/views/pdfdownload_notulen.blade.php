@@ -45,8 +45,8 @@
     }
 
     img {
-      height: 85%;
-      width: 85%;
+      height: auto;
+      width: auto;
     }
 
   </style>
