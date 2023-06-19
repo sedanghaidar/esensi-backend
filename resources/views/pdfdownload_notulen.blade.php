@@ -130,7 +130,7 @@
 
   <div class="page-break"></div>
   <p class="center">DOKUMENTASI</p>
-  <img class="center-image" src="{{url('http://localhost:8000/storage/images/'.$notulen->image1)}}">
+  <img class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
   @if ($notulen->image2 != '')
   <img src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
   @endif
