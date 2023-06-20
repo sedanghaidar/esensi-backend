@@ -19,6 +19,8 @@ class Participant extends Model
         'jabatan',
         'instansi',
         'organization_id',
+        'wilayah',
+        'wilayah_id',
         'nohp',
         'signature',
         'qr_code',
