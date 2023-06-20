@@ -36,7 +36,7 @@ class OrganizationLimitController extends Controller
                 $org = Organization::findOrCreate($item['organization_name']);
 
                 // insert atau update
-                OrganizationLimit::insertOrUpdateLimit($item['activity_id'], $org->id, $item['max_participant']);
+                OrganizationLimit::insertOrUpdateLimit($item['activity_id'], $org->id, $item['max_participant'], $item['region_id'], $item['region_name']);
             }
 
             if ($result) {
@@ -100,6 +100,8 @@ class OrganizationLimitController extends Controller
                 'activity_id' => 'required',
                 'organization_name' => 'required',
                 'max_participant' => 'required',
+                'region_id' => 'required',
+                'region_name' => 'required',
             ]);
 
 
@@ -108,12 +110,12 @@ class OrganizationLimitController extends Controller
             }
 
             $result = OrganizationLimit::updateOrCreate(
-                ['activity_id' => $request->activity_id, 'organization_id' => Organization::getSingleOrganisasi($request->organization_name)->id,],
-                ['max_participant' => $request->max_participant, 'created_by' => auth()->user()->id,]
+                ['activity_id' => $request->activity_id, 'organization_id' => Organization::getSingleOrganisasi($request->organization_name)->id, 'region_id' => $request->region_id,],
+                ['region_name' => $request->region_name, 'max_participant' => $request->max_participant, 'created_by' => auth()->user()->id,]
             );
 
             if ($result) {
-                return $this->success("Berhasil menambah data", OrganizationLimit::find($result->id));
+                return $this->success("Berhasil memperbarui data", OrganizationLimit::find($result->id));
             } else {
                 return $this->error("Gagal menambahkan data");
             }

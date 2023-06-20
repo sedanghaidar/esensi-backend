@@ -264,6 +264,7 @@ class ParticipantController extends Controller
                 // 'gender' => 'required',
                 'jabatan' => 'required',
                 'instansi' => 'required',
+                'region_id' => 'required',
                 'nohp' => 'required',
                 'signature' => 'required',
             ]);
@@ -279,7 +280,7 @@ class ParticipantController extends Controller
             //load detail kegiatan
             $kegiatan = Activity::find($request->activity_id);
             if ($kegiatan->limit_participant == 1) {
-                if (Participant::getTotalPesertaTerdaftar($request->activity_id, $organisasi->id) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $organisasi->id)) {
+                if (Participant::getTotalPesertaTerdaftar($request->activity_id, $organisasi->id, $request->region_id) >= OrganizationLimit::getTotalLimitParticipant($request->activity_id, $organisasi->id, $request->region_id)) {
                     return $this->error("Maaf, Kuota telah terpenuhi untuk instansi anda..");
                 }
             }
@@ -310,6 +311,8 @@ class ParticipantController extends Controller
                 'jabatan' => $request->jabatan,
                 'instansi' => $request->instansi,
                 'organization_id' => $organisasi->id,
+                'region_name' => $request->region_name ?? null,
+                'region_id' => $request->region_id ?? null,
                 'nohp' => $request->nohp,
                 'signature' => $request->path_signature,
                 'qr_code' => Str::random(69),
