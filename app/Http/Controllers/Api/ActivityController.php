@@ -94,9 +94,9 @@ class ActivityController extends Controller
             $role_id  = auth()->user()->role_id;
             $query = Activity::OrderByDesc('created_at');
 
-            if ($role_id == 1) {
+            if ($role_id == 2) {
                 $query = $query->where('dinas_id', '=', auth()->user()->dinas_id);
-            } elseif ($role_id == 2) {
+            } elseif ($role_id == 3) {
                 $query = $query->where('bidang_id', '=', auth()->user()->bidang_id);
             } elseif ($role_id == null) {
                 return $this->error("role id not found.", 401);
