@@ -32,7 +32,7 @@ class ParticipantController extends Controller
         $message = str_replace("#nama_peserta", $participant->name, $message);
         $message = str_replace("#telp_peserta", $participant->nohp, $message);
         $message = str_replace("#jk_peserta", $participant->gender, $message);
-        $message = str_replace("#instansi_peserta", $participant->instansi, $message);
+        $message = str_replace("#instansi_peserta", $participant->instansi . " " . $participant->region_name, $message);
         $message = str_replace("#jabatan_peserta", $participant->jabatan, $message);
 
 
