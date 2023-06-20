@@ -108,8 +108,8 @@
 
   <table style="width: 100%">
     <tr style="height: 10px">
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->jabatan}}</td>
+      <td style="width: 30%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 70%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->jabatan}}</td>
     </tr>
 
     <br>
@@ -118,29 +118,29 @@
 
 
     <tr style="height: 10px">
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-      <td style="width: 50%; text-decoration: underline; padding-left: 12px; padding-right: 12px;text-align: center;"><strong> {{$notulen->nama}}</strong></td>
+      <td style="width: 30%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 70%; text-decoration: underline; padding-left: 12px; padding-right: 12px;text-align: center;"><strong> {{$notulen->nama}}</strong></td>
     </tr>
     <tr style="height: 10px">
 
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->pangkat}}</td>
+      <td style="width: 30%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 70%; padding-left: 12px; padding-right: 12px;text-align: center;">{{$notulen->pangkat}}</td>
     </tr>
     <tr style="height: 10px">
 
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;"></td>
-      <td style="width: 50%; padding-left: 12px; padding-right: 12px;text-align: center;">NIP. {{$notulen->nip}}</td>
+      <td style="width: 30%; padding-left: 12px; padding-right: 12px;"></td>
+      <td style="width: 70%; padding-left: 12px; padding-right: 12px;text-align: center;">NIP. {{$notulen->nip}}</td>
     </tr>
   </table>
 
   <div class="page-break"></div>
   <p class="center">DOKUMENTASI</p>
-  <img width="850" class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
+  <img width="500" class="center-image" src="{{url('storage/images/'.$notulen->image1)}}">
   @if ($notulen->image2 != '')
-  <img width="850" src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
+  <img width="500" src="{{url('storage/images/'.$notulen->image1)}}" class="center-image">
   @endif
   @if ($notulen->image3 != '')
-  <img width="850" src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
+  <img width="500" src="{{url('storage/images/'.$notulen->image3)}}" class="center-image">
   @endif
 
   {{-- PESERTA --}}
