@@ -40,8 +40,8 @@ class Participant extends Model
         return $this->belongsTo(Activity::class, 'activity_id');
     }
 
-    public static function getTotalPesertaTerdaftar($activity_id, $organization_id)
+    public static function getTotalPesertaTerdaftar($activity_id, $organization_id, $region_id)
     {
-        return self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->count();
+        return self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->where('region_id', '=', $region_id)->count();
     }
 }
