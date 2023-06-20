@@ -310,7 +310,7 @@ class ParticipantController extends Controller
                 'jabatan' => $request->jabatan,
                 'instansi' => $request->instansi,
                 'organization_id' => $organisasi->id,
-                'region_name' => $request->region_id ?? null,
+                'region_name' => $request->region_name ?? null,
                 'region_id' => $request->region_id ?? null,
                 'nohp' => $request->nohp,
                 'signature' => $request->path_signature,
