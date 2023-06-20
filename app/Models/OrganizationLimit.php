@@ -11,7 +11,7 @@ class OrganizationLimit extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id', 'activity_id', 'organization_id', 'max_participant', 'created_by'
+        'id', 'activity_id', 'region_id', 'region_name', 'organization_id', 'max_participant', 'created_by'
     ];
 
     //SOFT DELETE
@@ -27,10 +27,10 @@ class OrganizationLimit extends Model
     }
 
 
-    public static function insertOrUpdateLimit($activity_id, $organization_id, $max_participant)
+    public static function insertOrUpdateLimit($activity_id, $organization_id, $max_participant, $region_id, $region_name)
     {
         try {
-            $result = self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->first();
+            $result = self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->where('region_id', '=', $region_id)->first();
 
             if ($result) {
                 //ada maka update
@@ -43,6 +43,8 @@ class OrganizationLimit extends Model
                     'activity_id' => $activity_id,
                     'organization_id' => $organization_id,
                     'max_participant' => $max_participant,
+                    'region_id' => $region_id,
+                    'region_name' => $region_name,
                     'created_by' => auth()->user()->id,
                 ]);
             }

@@ -91,7 +91,17 @@ class ActivityController extends Controller
     public function index()
     {
         try {
-            $result = Activity::OrderByDesc('created_at')->get();
+            $role_id  = auth()->user()->role_id;
+            $query = Activity::OrderByDesc('created_at');
+
+            if ($role_id == 2) {
+                $query = $query->where('dinas_id', '=', auth()->user()->dinas_id);
+            } elseif ($role_id == 3) {
+                $query = $query->where('bidang_id', '=', auth()->user()->bidang_id);
+            } elseif ($role_id == null) {
+                return $this->error("role id not found.", 401);
+            }
+            $result = $query->get();
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
