@@ -79,12 +79,13 @@ class OrganizationController extends Controller
 
             $validator = Validator::make($input, [
                 'name' => 'required|unique:organizations',
-                'short_name' => 'required'
+                'short_name' => 'required',
+                'internal' => 'required',
             ]);
 
 
             if ($validator->fails()) {
-                return $this->error("Nama sudah ada.");
+                return $this->error("Parameter is missing");
             }
             $result = Organization::create($input);
 
@@ -130,12 +131,27 @@ class OrganizationController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $input = $request->all();
+            // return $input;
+
+            $validator = Validator::make($input, [
+                'name' => 'required|unique:organizations',
+                'short_name' => 'required',
+                'internal' => 'required',
+            ]);
+
+
+            if ($validator->fails()) {
+                return $this->error("Parameter is missing");
+            }
+
             $organization = Organization::find($id);
             $organization->name = $request->name;
             $organization->short_name = $request->short_name;
+            $organization->internal = $request->has('internal') ? $request->internal : $organization->internal;
             $organization->save();
 
-            return $this->success("Berhasil menghapus data", $organization);
+            return $this->success("Berhasil memperbarui data", $organization);
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }

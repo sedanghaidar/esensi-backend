@@ -11,7 +11,7 @@ class Organization extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id', 'name', 'short_name', 'created_at', 'updated_at', 'deleted_at',
+        'id', 'internal', 'name', 'short_name', 'created_at', 'updated_at', 'deleted_at',
     ];
 
     //SOFT DELETE
@@ -27,20 +27,21 @@ class Organization extends Model
         return self::where('name', '=', $name)->first();
     }
 
-    public static function insertOrganisasi($name)
+    public static function insertOrganisasi($name, $internal = 0)
     {
         return self::create([
             'name' => $name,
             'short_name' => $name,
+            'internal' => $internal,
         ]);
     }
 
-    public static function findOrCreate($name)
+    public static function findOrCreate($name, $internal = 0)
     {
         //cek instansi ada tidak
         $organisasi = Organization::getSingleOrganisasi($name);
         if ($organisasi == false) {
-            $insOrg = Organization::insertOrganisasi($name);
+            $insOrg = Organization::insertOrganisasi($name, $internal);
             return $insOrg;
         }
         return $organisasi;
