@@ -53,6 +53,7 @@ class OrganizationLimitController extends Controller
     {
         try {
             $result = OrganizationLimit::with('organization')
+                ->with('parent')
                 ->where('activity_id', '=', $kegiatan_id)
                 ->get();
 
