@@ -19,7 +19,7 @@ class OrganizationLimit extends Model
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class, 'organization_id');
+        return $this->belongsTo(Organization::class, 'organization_id')->with('parent');
     }
     public function kegiatan()
     {
@@ -61,5 +61,10 @@ class OrganizationLimit extends Model
             return $result->max_participant;
         }
         return 0;
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id')->with('parent');
     }
 }
