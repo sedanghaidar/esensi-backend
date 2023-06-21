@@ -62,4 +62,9 @@ class OrganizationLimit extends Model
         }
         return 0;
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id')->with('parent');
+    }
 }
