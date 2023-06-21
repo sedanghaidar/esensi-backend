@@ -44,4 +44,9 @@ class Participant extends Model
     {
         return self::where('activity_id', '=', $activity_id)->where('organization_id', '=', $organization_id)->where('region_id', '=', $region_id)->count();
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id')->with('parent');
+    }
 }

@@ -202,6 +202,7 @@ class ParticipantController extends Controller
     {
         try {
             $result = Participant::with('kegiatan')
+                ->with('parent')
                 ->where('activity_id', '=', $kegiatan_id)
                 ->orderByDesc('updated_at')
                 ->get();
