@@ -20,7 +20,8 @@ class OrganizationController extends Controller
         try {
             $result = OrganizationLimit::where('activity_id', '=', $id)
                 ->leftjoin('organizations', 'organizations.id', '=',  'organization_id')
-                ->select('organizations.id', 'name', 'short_name', 'region_id', 'region_name', 'max_participant')
+                ->select('organizations.id', 'organization_id', 'name', 'short_name', 'region_id', 'region_name', 'max_participant')
+                ->with('parent')
                 ->get();
 
             if ($result) {
