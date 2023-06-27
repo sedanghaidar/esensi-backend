@@ -128,7 +128,8 @@ class ParticipantController extends Controller
             $query = Participant::where('activity_id', '=', $request->kegiatan_id)
                 ->orderBy($sortBy, $sortAt);
 
-            if ($kegiatan->limit_participant == 1) {
+            if ($kegiatan->type == 2) {
+                //kondisi tipe pendaftaran
                 $query = $query->whereNotNull('scanned_at');
             }
             $results = $query->get();
