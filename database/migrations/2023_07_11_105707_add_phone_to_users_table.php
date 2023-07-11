@@ -15,6 +15,7 @@ class AddPhoneToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->after('bidang_id')->nullable(false);
+            $table->dateTime('deleted_at')->nullable(true);
         });
     }
 
