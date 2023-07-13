@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\NotulenController;
 use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\ParticipantController;
 use App\Http\Controllers\Api\OrganizationLimitController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/tambah', [OrganizationController::class, 'store']);
         Route::post('/hapus/{id}', [OrganizationController::class, 'destroy']);
         Route::post('/update/{id}', [OrganizationController::class, 'update']);
+    });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index']);                  //list data
+        Route::get('/{id}', [UserController::class, 'show']);               //detail data
+        Route::post('/', [UserController::class, 'store']);                 //insert data
+        Route::post('/{id}', [UserController::class, 'update']);            //update data
+        Route::post('/delete/{id}', [UserController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+
     });
 
     Route::prefix('kegiatan')->group(function () {

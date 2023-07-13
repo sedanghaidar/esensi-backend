@@ -14,9 +14,9 @@ class AddRoleDinasBidangToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('role_id')->after('username')->default(2);
-            $table->integer('dinas_id')->after('role_id')->nullable(false);
-            $table->integer('bidang_id')->after('dinas_id')->nullable(false);
+            $table->integer('role_id')->after('username')->default(3);
+            $table->integer('dinas_id')->after('role_id')->nullable(true);
+            $table->integer('bidang_id')->after('dinas_id')->nullable(true);
         });
     }
 
