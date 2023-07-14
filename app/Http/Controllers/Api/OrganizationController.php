@@ -43,7 +43,7 @@ class OrganizationController extends Controller
     {
         try {
             $result = Organization::with('parent')->whereHas('parent', function ($query) {
-                $query->where('parent_id', '=', null);
+                $query->whereIn('parent_all_id', [751, 863, 947, 1053, 1127, 1269, 1413, 1495, 1625, 1809, 1921, 1999, 2119])->orWhere('parent_id', '=', null);
             })->orWhere('parent_id', '=', null)->get();
             // $result = Organization::with('parent')->where('parent_id', '=', null)->get();
 
