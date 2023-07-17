@@ -65,6 +65,11 @@ class OrganizationLimit extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Organization::class, 'organization_id', 'id')->with('parent');
+        return $this->belongsTo(Organization::class, 'parent_id', 'id')->with('parent');
+    }
+
+    public function parent2()
+    {
+        return $this->belongsTo(Organization::class, 'parent_id', 'id')->with('parent');
     }
 }
