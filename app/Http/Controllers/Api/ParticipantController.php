@@ -134,7 +134,7 @@ class ParticipantController extends Controller
             }
             $results = $query->get();
 
-            // return view('pdfdownload', compact('results', 'kegiatan'));
+            return view('pdfdownload', compact('results', 'kegiatan'));
 
             $pdf = PDF::setOptions([
                 'images' => true,
