@@ -110,6 +110,11 @@ class ParticipantController extends Controller
     {
         try {
             $input = $request->all();
+            $printWilayah = false;
+
+            if ($request->has('wilayah')) {
+                $printWilayah = $request->wilayah;
+            }
 
             $validator = Validator::make($input, [
                 'kegiatan_id' => 'required',
@@ -134,13 +139,15 @@ class ParticipantController extends Controller
             }
             $results = $query->get();
 
-            return view('pdfdownload', compact('results', 'kegiatan'));
+            // return $results;
+
+            // return view('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
 
             $pdf = PDF::setOptions([
                 'images' => true,
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => true,
-            ])->loadView('pdfdownload', compact('results', 'kegiatan'));
+            ])->loadView('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
             $pdf->setProtocol($_SERVER['DOCUMENT_ROOT']);
 
             $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
