@@ -80,9 +80,11 @@
     <tr style="height: 40px">
       <td class="border" style="width: 10%; text-align: center;">{{$key+1}}</td>
       <td class="border" style="width: 30%; padding-left: 12px; padding-right: 12px;">{{$item->name}}</td>
-      <td class="border" style="width: 40%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}} @if ($item->region_id != null)
+      <td class="border" style="width: 40%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}}
+        @if ($printWilayah && $item->region_id != null)
         {{$item->region_name}}
-        @endif</td>
+        @endif
+      </td>
       {{-- <td class="border" style="width: 20%; padding-left: 12px; padding-right: 12px;">{{ substr($item->scanned_at, 11, 10)}}</td> --}}
       <td class="border center" style="width: 20%; height: 40px;"><img src="{{url('storage/signature/'.$item->signature)}}" height="40px" class="center"></td>
     </tr>
