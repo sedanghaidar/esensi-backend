@@ -111,9 +111,14 @@ class ParticipantController extends Controller
         try {
             $input = $request->all();
             $printWilayah = false;
+            $stream = false;
 
             if ($request->has('wilayah')) {
                 $printWilayah = $request->wilayah;
+            }
+
+            if ($request->has('stream')) {
+                $stream = $request->stream;
             }
 
             $validator = Validator::make($input, [
@@ -143,28 +148,37 @@ class ParticipantController extends Controller
 
             // return view('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
 
-            $pdf = PDF::setOptions([
-                'images' => true,
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-            ])->loadView('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
-            $pdf->setProtocol($_SERVER['DOCUMENT_ROOT']);
+            $pdf = PDF::loadView('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
 
-            $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
+            if ($stream) {
 
-            $pdf->getDomPDF()->setHttpContext(
-                stream_context_create([
-                    'ssl' => [
-                        'allow_self_signed' => TRUE,
-                        'verify_peer' => FALSE,
-                        'verify_peer_name' => FALSE,
-                    ]
-                ])
-            );
+                return $pdf->stream($kegiatan->name . '.pdf');
+            } else {
+                return $pdf->download($kegiatan->name . '.pdf');
+            }
 
-            $pdf->setPaper('a4', 'potrait');
+            // $pdf = PDF::setOptions([
+            //     'images' => true,
+            //     'isHtml5ParserEnabled' => true,
+            //     'isRemoteEnabled' => true,
+            // ])->loadView('pdfdownload', compact('results', 'kegiatan', 'printWilayah'));
+            // $pdf->setProtocol($_SERVER['DOCUMENT_ROOT']);
 
-            return $pdf->download($kegiatan->name . '.pdf');
+            // $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
+
+            // $pdf->getDomPDF()->setHttpContext(
+            //     stream_context_create([
+            //         'ssl' => [
+            //             'allow_self_signed' => TRUE,
+            //             'verify_peer' => FALSE,
+            //             'verify_peer_name' => FALSE,
+            //         ]
+            //     ])
+            // );
+
+            // $pdf->setPaper('a4', 'potrait');
+
+            // return $pdf->stream($kegiatan->name . '.pdf');
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }

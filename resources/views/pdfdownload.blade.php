@@ -80,7 +80,7 @@
         @endif
       </td>
       {{-- <td class="border" style="width: 20%; padding-left: 12px; padding-right: 12px;">{{ substr($item->scanned_at, 11, 10)}}</td> --}}
-      <td class="border center" style="width: 15%; height: 38px;"><img src="{{url('storage/signature/'.$item->signature)}}" height="38px" class="center"></td>
+      <td class="border center" style="width: 15%; height: 38px;"><img src="{{public_path('storage/signature/'.$item->signature)}}" height="38px" class="center"></td>
     </tr>
     @endforeach
   </table>
