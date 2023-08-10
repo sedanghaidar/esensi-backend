@@ -148,9 +148,6 @@ class OrganizationController extends Controller
                 return $this->error("Parameter is missing");
             }
 
-            // $organization = Organization::where('id', $id)->update([
-            //     'internal' => $request->internal
-            // ]);
             $organization = Organization::find($id);
             $organization->name = $request->name;
             $organization->short_name = $request->short_name;
