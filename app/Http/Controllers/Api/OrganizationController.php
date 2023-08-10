@@ -44,7 +44,9 @@ class OrganizationController extends Controller
         try {
             $result = Organization::with('parent')->where(function ($query) {
                 $query->whereIn('parent_all_id', [751, 863, 947, 1053, 1127, 1269, 1413, 1495, 1625, 1809, 1921, 1999, 2119])->orWhere('parent_id', '=', null);
-            })->orWhere('parent_id', '=', null)->get();
+            })->orWhere('parent_id', '=', null)->orWhereHas('parent', function ($query) {
+                $query->where('parent_id', '=', null);
+            })->get();
             // $result = Organization::with('parent')->where('parent_id', '=', null)->get();
 
             if ($result) {
@@ -136,7 +138,7 @@ class OrganizationController extends Controller
             // return $input;
 
             $validator = Validator::make($input, [
-                'name' => 'required|unique:organizations',
+                'name' => 'required|unique:organizations,name,' . $id,
                 'short_name' => 'required',
                 'internal' => 'required',
             ]);
@@ -149,7 +151,7 @@ class OrganizationController extends Controller
             $organization = Organization::find($id);
             $organization->name = $request->name;
             $organization->short_name = $request->short_name;
-            $organization->internal = $request->has('internal') ? $request->internal : $organization->internal;
+            $organization->internal = $request->internal;
             $organization->save();
 
             return $this->success("Berhasil memperbarui data", $organization);

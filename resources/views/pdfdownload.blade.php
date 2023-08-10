@@ -41,7 +41,7 @@
     <tr>
       <td>HARI/TGL</td>
       <td>:</td>
-      <td>{{ (new \App\Helpers\MyHelper)->indonesian_date($kegiatan->date, 'l')}}, {{ (new \App\Helpers\MyHelper)->indonesian_date($kegiatan->date, 'd F Y') }}</td>
+      <td>{{ (new \App\Helpers\MyHelper)->indonesian_date($kegiatan->date, 'l, d F Y') }}</td>
     </tr>
     <tr>
       <td>JAM</td>
