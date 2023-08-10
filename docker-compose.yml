@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: ajianaz
+        uid: 1002
+      context: ./
+      dockerfile: Dockerfile
+    image: esensi
+    container_name: esensi-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - esensi
+
+  nginx:
+    image: nginx:alpine
+    container_name: esensi-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - esensi
+
+networks:
+  esensi:
+    driver: bridge
