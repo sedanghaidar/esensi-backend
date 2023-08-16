@@ -145,7 +145,16 @@ class NotulenController extends Controller
     public function show($id)
     {
         try {
-            $result = Notulen::where('activity_id', '=', $id)->first();
+            $result = Notulen::where('activity_id', '=', $id)->with('kegiatan')->first();
+
+            if ($result != null) {
+                $instansi = Participant::where('activity_id', $id)
+                    ->orderBy('instansi', 'asc')
+                    ->get()
+                    ->unique('instansi')->pluck('instansi');
+
+                $result['peserta'] = collect($instansi)->values()->all();
+            }
 
             if ($result) {
                 return $this->success("Berhasil mengambil data", $result);
