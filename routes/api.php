@@ -40,7 +40,7 @@ Route::get('/peserta/blast-wa-participant/{id}', [ParticipantController::class, 
 Route::get('/notulen/download/pdf', [NotulenController::class, 'downloadPDF']);
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'cors'])->group(function () {
 
     Route::prefix('organisasi')->group(function () {
         Route::post('/tambah', [OrganizationController::class, 'store']);
