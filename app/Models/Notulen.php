@@ -21,4 +21,14 @@ class Notulen extends Model
 
     //SOFT DELETE
     protected $dates = ['deleted_at'];
+
+    public function kegiatan()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id', 'id');
+    }
+
+    public function peserta()
+    {
+        return $this->belongsToMany(Participant::class, 'activity_id');
+    }
 }
