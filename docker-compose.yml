@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile
     image: esensi
     container_name: esensi-app
+    ports:
+      - 8001:80
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
