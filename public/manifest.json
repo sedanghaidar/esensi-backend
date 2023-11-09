@@ -1,11 +1,11 @@
 {
-    "name": "absensi_kegiatan",
-    "short_name": "absensi_kegiatan",
+    "name": "dashboard_egov",
+    "short_name": "dashboard_egov",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0b53471",
+    "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Multiplatform Apps for Absensi Kegiatan",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
