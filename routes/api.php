@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\OrganizationLimitController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Cors;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,80 +22,83 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
+Route::middleware(['cors'])->group(function () {
 
-Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']);  //detail kegiatan by kode url (public)
-Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
-Route::get('/organisasi', [OrganizationController::class, 'index']);                  //list data
-Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByKegiatan']);                  //list data
+    Route::post('login', [AuthController::class, 'login']);
 
-// Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
-Route::get('/peserta/{id}', [ParticipantController::class, 'show']);               //detail data
+    Route::get('/kegiatan/kode/{codeurl}', [ActivityController::class, 'loadByCode']);  //detail kegiatan by kode url (public)
+    Route::post('/peserta/daftar', [ParticipantController::class, 'store']);
+    Route::get('/organisasi', [OrganizationController::class, 'index']);                  //list data
+    Route::get('/organisasi/kegiatan/{id}', [OrganizationController::class, 'listByKegiatan']);                  //list data
 
-Route::get('/peserta/download/excel', [ParticipantController::class, 'downloadExcel']);
-Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF']);
+    // Route::post('/organization-limit', [OrganizationLimitController::class, 'store']);
+    Route::get('/peserta/{id}', [ParticipantController::class, 'show']);               //detail data
 
-Route::get('/peserta/blast-wa/{id}', [ParticipantController::class, 'sendWAPerActivity']);
-Route::get('/peserta/blast-wa-participant/{id}', [ParticipantController::class, 'sendWAPerParticipantAndActivity']);
+    Route::get('/peserta/download/excel', [ParticipantController::class, 'downloadExcel']);
+    Route::get('/peserta/download/pdf', [ParticipantController::class, 'downloadPDF']);
 
-Route::get('/notulen/download/pdf', [NotulenController::class, 'downloadPDF']);
+    Route::get('/peserta/blast-wa/{id}', [ParticipantController::class, 'sendWAPerActivity']);
+    Route::get('/peserta/blast-wa-participant/{id}', [ParticipantController::class, 'sendWAPerParticipantAndActivity']);
+
+    Route::get('/notulen/download/pdf', [NotulenController::class, 'downloadPDF']);
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::prefix('organisasi')->group(function () {
-        Route::post('/tambah', [OrganizationController::class, 'store']);
-        Route::post('/hapus/{id}', [OrganizationController::class, 'destroy']);
-        Route::post('/update/{id}', [OrganizationController::class, 'update']);
-    });
+        Route::prefix('organisasi')->group(function () {
+            Route::post('/tambah', [OrganizationController::class, 'store']);
+            Route::post('/hapus/{id}', [OrganizationController::class, 'destroy']);
+            Route::post('/update/{id}', [OrganizationController::class, 'update']);
+        });
 
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UserController::class, 'index']);                  //list data
-        Route::get('/{id}', [UserController::class, 'show']);               //detail data
-        Route::post('/', [UserController::class, 'store']);                 //insert data
-        Route::post('/{id}', [UserController::class, 'update']);            //update data
-        Route::post('/delete/{id}', [UserController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        Route::prefix('users')->group(function () {
+            Route::get('/', [UserController::class, 'index']);                  //list data
+            Route::get('/{id}', [UserController::class, 'show']);               //detail data
+            Route::post('/', [UserController::class, 'store']);                 //insert data
+            Route::post('/{id}', [UserController::class, 'update']);            //update data
+            Route::post('/delete/{id}', [UserController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
 
-    });
+        });
 
-    Route::prefix('kegiatan')->group(function () {
-        Route::get('/', [ActivityController::class, 'index']);                  //list data
-        Route::get('/{id}', [ActivityController::class, 'show']);               //detail data
-        Route::post('/', [ActivityController::class, 'store']);                 //insert data
-        Route::post('/{id}', [ActivityController::class, 'update']);            //update data
-        Route::post('/delete/{id}', [ActivityController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        Route::prefix('kegiatan')->group(function () {
+            Route::get('/', [ActivityController::class, 'index']);                  //list data
+            Route::get('/{id}', [ActivityController::class, 'show']);               //detail data
+            Route::post('/', [ActivityController::class, 'store']);                 //insert data
+            Route::post('/{id}', [ActivityController::class, 'update']);            //update data
+            Route::post('/delete/{id}', [ActivityController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
 
-        Route::post('/notulensi/{id}', [ActivityController::class, 'updateLaporan']);            //update data
-    });
+            Route::post('/notulensi/{id}', [ActivityController::class, 'updateLaporan']);            //update data
+        });
 
-    Route::prefix('peserta')->group(function () {
-        Route::get('/kegiatan/{id}', [ParticipantController::class, 'getParticipantByKegiatanID']);               //detail data
-        Route::post('/scan', [ParticipantController::class, 'scanQRParticipant']);
+        Route::prefix('peserta')->group(function () {
+            Route::get('/kegiatan/{id}', [ParticipantController::class, 'getParticipantByKegiatanID']);               //detail data
+            Route::post('/scan', [ParticipantController::class, 'scanQRParticipant']);
 
-        Route::get('/', [ParticipantController::class, 'index']);                  //list data
-        // Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
-        // Route::post('/', [ParticipantController::class, 'store']);                 //insert data
-        Route::post('/{id}', [ParticipantController::class, 'update']);            //update data
-        Route::post('/delete/{id}', [ParticipantController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
-    });
+            Route::get('/', [ParticipantController::class, 'index']);                  //list data
+            // Route::get('/{id}', [ParticipantController::class, 'show']);               //detail data
+            // Route::post('/', [ParticipantController::class, 'store']);                 //insert data
+            Route::post('/{id}', [ParticipantController::class, 'update']);            //update data
+            Route::post('/delete/{id}', [ParticipantController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        });
 
-    Route::prefix('organization-limit')->group(function () {
-        Route::get('/byactid/{kegiatan_id}', [OrganizationLimitController::class, 'getListLimitOrgbyActivityID']);                  //list data by Kegiatan ID
-        Route::post('/insert', [OrganizationLimitController::class, 'bulkStore']);   //insert all data
+        Route::prefix('organization-limit')->group(function () {
+            Route::get('/byactid/{kegiatan_id}', [OrganizationLimitController::class, 'getListLimitOrgbyActivityID']);                  //list data by Kegiatan ID
+            Route::post('/insert', [OrganizationLimitController::class, 'bulkStore']);   //insert all data
 
-        Route::get('/', [OrganizationLimitController::class, 'index']);                  //list data
-        // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
-        Route::post('/createupdate', [OrganizationLimitController::class, 'store']);      //insert data
-        // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
-        Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
-    });
+            Route::get('/', [OrganizationLimitController::class, 'index']);                  //list data
+            // Route::get('/{id}', [OrganizationLimitController::class, 'show']);               //detail data
+            Route::post('/createupdate', [OrganizationLimitController::class, 'store']);      //insert data
+            // Route::post('/{id}', [OrganizationLimitController::class, 'update']);            //update data
+            Route::post('/delete/{id}', [OrganizationLimitController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        });
 
-    Route::prefix('notulen')->group(function () {
-        Route::get('/', [NotulenController::class, 'index']);                  //list data
-        Route::get('/{id}', [NotulenController::class, 'show']);               //detail data
-        Route::post('/', [NotulenController::class, 'store']);                 //insert data
-        Route::post('/{id}', [NotulenController::class, 'update']);            //update data
-        Route::post('/delete/{id}', [NotulenController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
+        Route::prefix('notulen')->group(function () {
+            Route::get('/', [NotulenController::class, 'index']);                  //list data
+            Route::get('/{id}', [NotulenController::class, 'show']);               //detail data
+            Route::post('/', [NotulenController::class, 'store']);                 //insert data
+            Route::post('/{id}', [NotulenController::class, 'update']);            //update data
+            Route::post('/delete/{id}', [NotulenController::class, 'destroy']);    //method Delete gatau knp ga bisa di gunain, akhir nya pakai post
 
+        });
     });
 });
