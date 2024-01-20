@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://cs.saturnalia.jatengprov.go.id'],
 
     'allowed_origins_patterns' => [],
 
