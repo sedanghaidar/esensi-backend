@@ -135,8 +135,9 @@ class ParticipantController extends Controller
             $sortAt = 'asc';
             if ($request->sortBy != null) $sortBy = $request->sortBy;
             if ($request->sortAt != null) $sortAt = $request->sortAt;
-            $query = Participant::where('activity_id', '=', $request->kegiatan_id)
+            $query = Participant::with('parent')->where('activity_id', '=', $request->kegiatan_id)
                 ->orderBy($sortBy, $sortAt);
+
 
             if ($kegiatan->type == 2) {
                 //kondisi tipe pendaftaran

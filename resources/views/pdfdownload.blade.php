@@ -75,6 +75,9 @@
       <td class="border" style="width: 7%; text-align: center;">{{$key+1}}</td>
       <td class="border" style="width: 33%; padding-left: 12px; padding-right: 12px;">{{$item->name}}</td>
       <td class="border" style="width: 45%; padding-left: 12px; padding-right: 12px;">{{$item->instansi}}
+        @if ($item->parent->parent != null)
+        {{$item->parent->parent->name}}
+        @endif
         @if ($printWilayah && $item->region_id != null)
         {{$item->region_name}}
         @endif
